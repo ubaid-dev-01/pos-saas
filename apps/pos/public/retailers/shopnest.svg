@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="64" viewBox="0 0 220 64" fill="none">
+    <rect width="220" height="64" rx="14" fill="#F7F9F8" />
+    <circle cx="32" cy="32" r="18" fill="#0F4B46" />
+    <path d="M24 37l4-10 4 7 4-7 4 10" stroke="#F4C96B" stroke-width="3" stroke-linecap="round"
+        stroke-linejoin="round" />
+    <text x="62" y="38" fill="#0B3A36" font-size="18" font-family="Segoe UI, Arial" font-weight="700">ShopNest</text>
+</svg>

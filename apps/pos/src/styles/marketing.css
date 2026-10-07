@@ -1,0 +1,297 @@
+/* QuickPOS Design DNA v1 — scoped to .marketing-shell */
+
+.marketing-shell {
+  /* Color */
+  --mkt-navy: #0a1628;
+  --mkt-blue: #123a6f;
+  --mkt-indigo: #3d4fd8;
+  --mkt-indigo-50: #eef0ff;
+  --mkt-gray-50: #f5f7fb;
+  --mkt-gray-100: #e8ecf3;
+  --mkt-gray-200: #d5dbe8;
+  --mkt-gray-500: #5b6577;
+  --mkt-gray-900: #0f141f;
+  --mkt-white: #ffffff;
+  /* Single theme: navy + indigo only — no emerald/green accents */
+
+  /* Grid */
+  --mkt-container: 1440px;
+  --mkt-gutter: 16px;
+
+  /* Motion */
+  --mkt-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --mkt-fast: 200ms;
+  --mkt-medium: 400ms;
+  --mkt-slow: 700ms;
+
+  /* Type */
+  font-family: "Geist Sans", "Geist", "Manrope", system-ui, sans-serif;
+  color: var(--mkt-gray-900);
+  background: var(--mkt-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (min-width: 768px) {
+  .marketing-shell {
+    --mkt-gutter: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .marketing-shell {
+    --mkt-gutter: 32px;
+  }
+}
+
+/* DNA: only intentional transitions — not everything */
+.marketing-shell a,
+.marketing-shell button,
+.marketing-shell .mkt-btn {
+  transition-property: color, background-color, border-color, opacity;
+  transition-duration: var(--mkt-fast);
+  transition-timing-function: var(--mkt-ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marketing-shell *,
+  .marketing-shell *::before,
+  .marketing-shell *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.mkt-container {
+  width: 100%;
+  max-width: var(--mkt-container);
+  margin-inline: auto;
+  padding-inline: var(--mkt-gutter);
+}
+
+/* Type scale — type captions the visual */
+.mkt-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mkt-indigo);
+}
+
+.mkt-display {
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--mkt-navy);
+}
+
+.mkt-title {
+  font-size: clamp(32px, 3.5vw, 44px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--mkt-navy);
+}
+
+.mkt-headline {
+  font-size: clamp(24px, 2vw, 28px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--mkt-navy);
+}
+
+.mkt-body {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--mkt-gray-500);
+  max-width: 68ch;
+}
+
+.mkt-support {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--mkt-gray-500);
+}
+
+.mkt-figure {
+  font-family: "Geist Mono", "GeistMono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--mkt-navy);
+}
+
+.mkt-figure-up {
+  color: var(--mkt-indigo);
+}
+
+/* Buttons — DNA */
+.mkt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.mkt-btn-primary {
+  background: var(--mkt-navy);
+  color: var(--mkt-white);
+}
+
+.mkt-btn-primary:hover {
+  background: var(--mkt-blue);
+}
+
+.mkt-btn-secondary {
+  background: transparent;
+  color: var(--mkt-navy);
+  border-color: var(--mkt-gray-200);
+}
+
+.mkt-btn-secondary:hover {
+  border-color: var(--mkt-navy);
+}
+
+.mkt-btn-invert {
+  background: var(--mkt-white);
+  color: var(--mkt-navy);
+}
+
+.mkt-btn-ghost-light {
+  background: transparent;
+  color: var(--mkt-white);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.mkt-btn-ghost-light:hover {
+  border-color: var(--mkt-white);
+}
+
+.mkt-link {
+  font-weight: 600;
+  color: var(--mkt-indigo);
+  text-decoration: none;
+}
+
+.mkt-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Sections — 8pt scale only: 80–96 mobile, 120–160 desktop */
+.mkt-section {
+  padding-block: 80px;
+}
+
+@media (min-width: 1024px) {
+  .mkt-section {
+    padding-block: 120px;
+  }
+}
+
+.mkt-section-lg {
+  padding-block: 96px;
+}
+
+@media (min-width: 1024px) {
+  .mkt-section-lg {
+    padding-block: 160px;
+  }
+}
+
+.mkt-band-white {
+  background: var(--mkt-white);
+}
+
+.mkt-band-soft {
+  background: var(--mkt-gray-50);
+}
+
+.mkt-band-navy {
+  background: var(--mkt-navy);
+  color: var(--mkt-white);
+}
+
+.mkt-rule {
+  border: 0;
+  border-top: 1px solid var(--mkt-gray-100);
+}
+
+/* Media flush to grid — radius 0, no shadow */
+.mkt-media {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+/* Soft enter only — content always readable (opacity never 0) */
+.mkt-reveal {
+  opacity: 1;
+  transform: none;
+}
+
+.mkt-reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mkt-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* 12-col story splits */
+.mkt-split {
+  display: grid;
+  gap: 48px;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .mkt-split {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 64px;
+  }
+
+  .mkt-split-copy {
+    grid-column: span 5;
+  }
+
+  .mkt-split-media {
+    grid-column: span 7;
+  }
+
+  .mkt-split-copy-wide {
+    grid-column: span 6;
+  }
+
+  .mkt-split-media-wide {
+    grid-column: span 6;
+  }
+
+  .mkt-split-reverse .mkt-split-copy {
+    order: 2;
+  }
+
+  .mkt-split-reverse .mkt-split-media {
+    order: 1;
+  }
+}

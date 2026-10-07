@@ -1,0 +1,19 @@
+:root {
+  /* Brand mark: #07131F + teal #0E7C77 */
+  --ink: #07131f;
+  --ink-soft: #122033;
+  --paper: #f3f5f7;
+  --paper-deep: #e9eef3;
+  --surface: #ffffff;
+  --inset: #e4ebf2;
+  --signal: #0e7c77;
+  --signal-deep: #0a5c58;
+  --accent-soft: #e4f2f1;
+  --line: rgba(7, 19, 31, 0.11);
+  --line-strong: rgba(7, 19, 31, 0.18);
+  --muted: #5a6674;
+  --warm: #c9852a;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
+}
+

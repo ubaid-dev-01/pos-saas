@@ -1,0 +1,187 @@
+@import "../styles/tokens.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-paper text-ink font-sans antialiased;
+  background-image:
+    radial-gradient(1200px 600px at 12% -10%, rgba(14, 124, 119, 0.06), transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, rgba(7, 19, 31, 0.04), transparent 50%);
+}
+
+@media (min-width: 768px) {
+  body {
+    background-attachment: fixed;
+  }
+}
+
+::selection {
+  background: color-mix(in srgb, var(--signal) 28%, white);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.receipt-pattern {
+  background-image: url("/brand/pattern.svg");
+  background-size: 160px 160px;
+}
+
+/* Force readable ink on inverse CTAs even inside dark text-paper sections */
+a.btn-inverse,
+button.btn-inverse {
+  color: var(--ink) !important;
+  background-color: var(--paper) !important;
+}
+
+/* ——— Atmosphere ——— */
+.atmosphere-hero {
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(180deg, #eef2f6 0%, var(--paper) 42%, #eef2f6 100%);
+}
+
+.atmosphere-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(ellipse 80% 55% at 70% 0%, rgba(14, 124, 119, 0.09), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 10% 30%, rgba(7, 19, 31, 0.05), transparent 55%);
+}
+
+.atmosphere-ink {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(900px 420px at 80% -20%, rgba(14, 124, 119, 0.22), transparent 55%),
+    radial-gradient(700px 380px at 0% 100%, rgba(255, 255, 255, 0.05), transparent 50%),
+    var(--ink);
+}
+
+.atmosphere-inset {
+  background: linear-gradient(180deg, #e8eef4 0%, #e2e9f0 100%);
+}
+
+/* ——— Stage presence ——— */
+.stage-shell {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 18px 48px rgba(7, 19, 31, 0.08),
+    0 4px 12px rgba(7, 19, 31, 0.04);
+}
+
+.stage-shell--flush {
+  border: none;
+  box-shadow:
+    0 24px 64px rgba(7, 19, 31, 0.1),
+    0 6px 16px rgba(7, 19, 31, 0.05);
+}
+
+.receipt-stage-well {
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 40%, rgba(255, 255, 255, 0.7), transparent 70%),
+    linear-gradient(180deg, #e8eef4 0%, #dde5ee 100%);
+}
+
+.receipt-paper {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 12px 28px rgba(7, 19, 31, 0.08);
+}
+
+/* ——— Reveal (scroll) ——— */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s var(--ease-reveal),
+    transform 0.7s var(--ease-reveal);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: translateY(24px) scale(0.985);
+  transition:
+    opacity 0.85s var(--ease-reveal),
+    transform 0.85s var(--ease-reveal);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal-scale.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-scale {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@keyframes bar-rise {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.chart-bar {
+  transform-origin: bottom;
+  animation: bar-rise 0.9s var(--ease-out) both;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+

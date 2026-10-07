@@ -1,0 +1,32 @@
+# QuickPOS
+
+> Cloud POS for Pakistan retail — checkout, inventory, customers (khata/loyalty), and reports.
+
+QuickPOS helps store owners run calmer counters with clearer daily numbers. Starter is free for one store; Premium is custom for multi-store.
+
+## Primary pages
+
+- [Home](https://pos-saas-kappa.vercel.app/): Product overview, workflow, FAQ
+- [Features](https://pos-saas-kappa.vercel.app/features): Checkout, inventory, customers, reports, team, receipts, payments, multi-store
+- [Industries](https://pos-saas-kappa.vercel.app/industries): Grocery, fashion, pharmacy, F&B, multi-store
+- [Pricing](https://pos-saas-kappa.vercel.app/pricing): Free Starter and Premium custom quote
+- [About](https://pos-saas-kappa.vercel.app/about): Company and customer stories
+- [Contact](https://pos-saas-kappa.vercel.app/contact): Sales and support (Multan, Pakistan)
+
+## Legal
+
+- [Terms](https://pos-saas-kappa.vercel.app/terms)
+- [Privacy](https://pos-saas-kappa.vercel.app/privacy)
+- [Refunds](https://pos-saas-kappa.vercel.app/refund)
+
+## Technical
+
+- [Sitemap](https://pos-saas-kappa.vercel.app/sitemap.xml)
+- [Robots](https://pos-saas-kappa.vercel.app/robots.txt)
+
+## Entities
+
+- Brand: QuickPOS
+- Category: BusinessApplication / cloud POS
+- Region: Pakistan (Multan office)
+- Product capabilities: barcode checkout, live stock, khata, loyalty, WhatsApp receipts, role-based team access

@@ -1,0 +1,302 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function authed() {
+      return request.auth != null;
+    }
+
+    function hasUserDoc() {
+      return authed() && exists(/databases/$(database)/documents/users/$(request.auth.uid));
+    }
+
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function isSuperAdmin() {
+      return hasUserDoc() && (
+        getUserData().role == 'superadmin' ||
+        getUserData().role == 'supperadmin'
+      );
+    }
+
+    function belongsToStore(storeId) {
+      let user = getUserData();
+      return isSuperAdmin() || user.storeId == storeId;
+    }
+
+    function isStoreAdmin(storeId) {
+      let user = getUserData();
+      return user.role == 'admin' && user.storeId == storeId;
+    }
+
+    function hasPermission(storeId, section) {
+      let user = getUserData();
+      let store = get(/databases/$(database)/documents/stores/$(storeId)).data;
+      return (user.role == 'superadmin' || user.role == 'supperadmin') || (
+        (store.menuConfig[section] == null || store.menuConfig[section] == true) &&
+        (user.permissions[section] == null || user.permissions[section] == true)
+      );
+    }
+
+    match /users/{uid} {
+      // Own profile: allowed even before users/{uid} exists (first login bootstrap)
+      allow read: if authed() && (
+        request.auth.uid == uid ||
+        (hasUserDoc() && (
+          isSuperAdmin() ||
+          resource.data.storeId == getUserData().storeId
+        ))
+      );
+
+      allow create: if authed() && (
+        request.auth.uid == uid ||
+        (hasUserDoc() && (
+          isSuperAdmin() ||
+          isStoreAdmin(request.resource.data.storeId)
+        ))
+      );
+
+      allow update: if authed() && hasUserDoc() && (
+        request.auth.uid == uid ||
+        isSuperAdmin() ||
+        isStoreAdmin(resource.data.storeId)
+      );
+
+      allow delete: if isSuperAdmin();
+    }
+
+    match /stores/{storeId} {
+      allow read: if authed() && hasUserDoc() && belongsToStore(storeId);
+
+      allow create: if authed() && hasUserDoc() && (
+        request.resource.data.ownerId == request.auth.uid ||
+        isSuperAdmin()
+      );
+
+      allow update: if authed() && hasUserDoc() && (
+        isSuperAdmin() ||
+        isStoreAdmin(storeId) ||
+        (
+          hasPermission(storeId, 'pos') &&
+          request.resource.data.diff(resource.data).changedKeys().hasOnly(['invoiceCounter']) &&
+          request.resource.data.invoiceCounter is number &&
+          (
+            (
+              resource.data.invoiceCounter is number &&
+              request.resource.data.invoiceCounter == resource.data.invoiceCounter + 1
+            ) ||
+            (
+              !(resource.data.invoiceCounter is number) &&
+              request.resource.data.invoiceCounter == 1
+            )
+          )
+        )
+      );
+
+      allow delete: if isSuperAdmin();
+
+      match /products/{productId} {
+        allow read: if authed() && hasUserDoc() && belongsToStore(storeId) && (
+          hasPermission(storeId, 'products') ||
+          hasPermission(storeId, 'inventory') ||
+          hasPermission(storeId, 'pos')
+        );
+
+        allow create, delete: if authed() && hasUserDoc() && belongsToStore(storeId) && hasPermission(storeId, 'products');
+
+        allow update: if authed() && hasUserDoc() && belongsToStore(storeId) && (
+          hasPermission(storeId, 'products') ||
+          (
+            (hasPermission(storeId, 'inventory') || hasPermission(storeId, 'pos')) &&
+            request.resource.data.diff(resource.data).changedKeys().hasOnly([
+              'stock',
+              'currentStock',
+              'availableStock',
+              'reservedStock',
+              'updatedAt'
+            ])
+          )
+        );
+      }
+
+      match /transactions/{txnId} {
+        allow read: if authed() && hasUserDoc() && belongsToStore(storeId) && (
+          hasPermission(storeId, 'transactions') ||
+          hasPermission(storeId, 'pos')
+        );
+
+        allow create: if authed() && hasUserDoc() && belongsToStore(storeId) && hasPermission(storeId, 'pos');
+
+        allow update, delete: if authed() && hasUserDoc() && belongsToStore(storeId) && hasPermission(storeId, 'transactions');
+      }
+
+      match /customers/{customerId} {
+        allow read: if authed() && hasUserDoc() && belongsToStore(storeId) && (
+          hasPermission(storeId, 'customers') ||
+          hasPermission(storeId, 'pos')
+        );
+
+        allow create, delete: if authed() && hasUserDoc() && belongsToStore(storeId) && hasPermission(storeId, 'customers');
+
+        allow update: if authed() && hasUserDoc() && belongsToStore(storeId) && (
+          hasPermission(storeId, 'customers') ||
+          (
+            hasPermission(storeId, 'pos') &&
+            request.resource.data.diff(resource.data).changedKeys().hasOnly([
+              'loyaltyPoints',
+              'totalSpent',
+              'lastPurchase',
+              'currentCredit',
+              'updatedAt'
+            ])
+          )
+        );
+      }
+
+      match /inventoryLogs/{logId} {
+        allow read: if authed() && hasUserDoc() && belongsToStore(storeId) && hasPermission(storeId, 'inventory');
+
+        allow create: if authed() && hasUserDoc() && belongsToStore(storeId) && (
+          hasPermission(storeId, 'inventory') ||
+          hasPermission(storeId, 'pos')
+        );
+
+        allow update, delete: if authed() && hasUserDoc() && belongsToStore(storeId) && hasPermission(storeId, 'inventory');
+      }
+
+      match /stockMovements/{movementId} {
+        allow read: if authed() && hasUserDoc() && belongsToStore(storeId) && hasPermission(storeId, 'inventory');
+        allow create: if authed() && hasUserDoc() && belongsToStore(storeId) && (
+          hasPermission(storeId, 'inventory') || hasPermission(storeId, 'pos')
+        );
+        allow update, delete: if authed() && hasUserDoc() && (
+          isStoreAdmin(storeId) || isSuperAdmin()
+        );
+      }
+
+      match /productBatches/{batchId} {
+        allow read: if authed() && hasUserDoc() && belongsToStore(storeId) && (
+          hasPermission(storeId, 'inventory') || hasPermission(storeId, 'pos')
+        );
+
+        allow create, delete: if authed() && hasUserDoc() && belongsToStore(storeId) && hasPermission(storeId, 'inventory');
+
+        allow update: if authed() && hasUserDoc() && belongsToStore(storeId) && (
+          hasPermission(storeId, 'inventory') ||
+          (
+            hasPermission(storeId, 'pos') &&
+            request.resource.data.diff(resource.data).changedKeys().hasOnly([
+              'currentQuantity',
+              'availableQuantity',
+              'isActive',
+              'updatedAt'
+            ])
+          )
+        );
+      }
+
+      match /suppliers/{supplierId} {
+        allow read, write: if authed() && hasUserDoc() && belongsToStore(storeId) && (
+          hasPermission(storeId, 'suppliers') || hasPermission(storeId, 'settings')
+        );
+      }
+
+      match /purchaseOrders/{poId} {
+        allow read, write: if authed() && hasUserDoc() && belongsToStore(storeId) && hasPermission(storeId, 'purchases');
+      }
+
+      match /goodsReceivedNotes/{grnId} {
+        allow read, write: if authed() && hasUserDoc() && belongsToStore(storeId) && hasPermission(storeId, 'purchases');
+      }
+
+      match /transactionReturns/{returnId} {
+        allow read, write: if authed() && hasUserDoc() && belongsToStore(storeId) && hasPermission(storeId, 'transactions');
+      }
+
+      match /cashRegisterSessions/{sessionId} {
+        allow read, write: if authed() && hasUserDoc() && belongsToStore(storeId) && hasPermission(storeId, 'pos');
+      }
+
+      match /udhaarLedgers/{ledgerId} {
+        allow read: if authed() && hasUserDoc() && belongsToStore(storeId) && (
+          hasPermission(storeId, 'customers') ||
+          hasPermission(storeId, 'transactions') ||
+          hasPermission(storeId, 'pos')
+        );
+        allow create: if authed() && hasUserDoc() && belongsToStore(storeId) && hasPermission(storeId, 'pos');
+        allow update, delete: if authed() && hasUserDoc() && (
+          isStoreAdmin(storeId) || isSuperAdmin()
+        );
+      }
+
+      match /fbrSyncLogs/{logId} {
+        allow read: if authed() && hasUserDoc() && belongsToStore(storeId) && (
+          isStoreAdmin(storeId) ||
+          hasPermission(storeId, 'reports') ||
+          hasPermission(storeId, 'settings')
+        );
+        allow create: if authed() && hasUserDoc() && belongsToStore(storeId) && hasPermission(storeId, 'pos');
+        allow update: if authed() && hasUserDoc() && belongsToStore(storeId) && (
+          isStoreAdmin(storeId) || isSuperAdmin()
+        );
+        allow delete: if isSuperAdmin();
+      }
+
+      match /expenses/{expenseId} {
+        allow read, write: if authed() && hasUserDoc() && belongsToStore(storeId) && hasPermission(storeId, 'expenses');
+      }
+
+      match /auditLog/{logId} {
+        allow read: if authed() && hasUserDoc() && belongsToStore(storeId) && (
+          isStoreAdmin(storeId) || isSuperAdmin()
+        );
+        allow create: if authed() && hasUserDoc() && belongsToStore(storeId);
+        allow update, delete: if false;
+      }
+
+      match /activityLogs/{activityId} {
+        allow read: if authed() && hasUserDoc() && belongsToStore(storeId) && (
+          isStoreAdmin(storeId) ||
+          hasPermission(storeId, 'reports') ||
+          hasPermission(storeId, 'settings')
+        );
+        allow create: if authed() && hasUserDoc() && belongsToStore(storeId);
+        allow update, delete: if authed() && hasUserDoc() && (isStoreAdmin(storeId) || isSuperAdmin());
+      }
+
+      match /notifications/{notificationId} {
+        allow read: if authed() && hasUserDoc() && belongsToStore(storeId);
+        allow create, update, delete: if authed() && hasUserDoc() && (isStoreAdmin(storeId) || isSuperAdmin());
+      }
+
+      match /alerts/{alertId} {
+        allow read: if authed() && hasUserDoc() && belongsToStore(storeId);
+        allow create, update, delete: if authed() && hasUserDoc() && (isStoreAdmin(storeId) || isSuperAdmin());
+      }
+    }
+
+    match /platform/{docId} {
+      allow read, write: if authed() && hasUserDoc() && isSuperAdmin();
+    }
+
+    // OTP codes   server (Firebase Admin) only; never client-readable
+    match /emailOtps/{docId} {
+      allow read, write: if false;
+    }
+
+    match /leads/{leadId} {
+      allow create: if request.resource.data.name is string
+        && request.resource.data.businessName is string
+        && request.resource.data.phone is string
+        && request.resource.data.businessType is string
+        && request.resource.data.storeCount is string
+        && request.resource.data.preferredContact is string
+        && request.resource.data.source is string
+        && request.resource.data.status == 'new';
+
+      allow read, update, delete: if authed() && hasUserDoc() && isSuperAdmin();
+    }
+  }
+}

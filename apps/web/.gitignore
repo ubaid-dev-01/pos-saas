@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+.packs
+*.tgz
+npm-out.txt
+npm-err.txt
+.env*.local
+yarn.lock
+.vercel

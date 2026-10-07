@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 40" fill="none" role="img" aria-label="QuickPOS">
+  <rect width="40" height="40" rx="6" fill="#F4F6F8"/>
+  <path d="M20 8.75c-6.213 0-11.25 5.037-11.25 11.25 0 4.832 3.042 8.958 7.313 10.538L13.9 35h4.5l1.688-3.375c.325.031.656.05 1.0.05 6.213 0 11.25-5.037 11.25-11.25S26.213 8.75 20 8.75Zm0 18c-3.728 0-6.75-3.022-6.75-6.75S16.272 13.25 20 13.25 26.75 16.272 26.75 20 23.728 26.75 20 26.75Z" fill="#07131F"/>
+  <rect x="8.75" y="19.4" width="22.5" height="1.6" fill="#0E7C77"/>
+  <text x="52" y="27" font-family="IBM Plex Sans, Arial, sans-serif" font-size="20" font-weight="700" fill="#F4F6F8" letter-spacing="-0.02em">QuickPOS</text>
+</svg>

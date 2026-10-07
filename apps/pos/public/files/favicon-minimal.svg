@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0D3B39"/>
+      <stop offset="100%" stop-color="#1A5E5A"/>
+    </linearGradient>
+    <linearGradient id="gd" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8A735"/>
+      <stop offset="100%" stop-color="#F0BC5E"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <!-- Q letter -->
+  <text x="32" y="43" text-anchor="middle" font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-weight="900" font-size="36" fill="white">Q</text>
+  <!-- Lightning accent -->
+  <path d="M44 10 L40 22 L44 22 L39 34 L48 19 L44 19 Z" fill="url(#gd)" opacity="0.9"/>
+  <!-- Gold dot -->
+  <circle cx="46" cy="48" r="4" fill="#E8A735"/>
+</svg>

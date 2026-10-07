@@ -1,0 +1,24 @@
+# QuickPOS
+
+> Retail commerce platform — a business operating system for checkout, inventory, customers, teams, and multi-store operations.
+
+QuickPOS helps growing stores run the counter with confidence and the back office with clarity. Never positioned as generic "SaaS" — outcomes first.
+
+## Product
+
+- [Home](https://pos-saas-kappa.vercel.app/): Positioning, workflow story, modules, industries, proof
+- [Platform / Features](https://pos-saas-kappa.vercel.app/features): Module storytelling
+- [Pricing](https://pos-saas-kappa.vercel.app/pricing): Starter and Premium
+- [About](https://pos-saas-kappa.vercel.app/about): Company and principles
+- [Contact](https://pos-saas-kappa.vercel.app/contact): Book a demo
+
+## Legal
+
+- [Terms of Service](https://pos-saas-kappa.vercel.app/terms)
+- [Privacy Policy](https://pos-saas-kappa.vercel.app/privacy)
+- [Refund Policy](https://pos-saas-kappa.vercel.app/refund)
+
+## Optional
+
+- [Sitemap](https://pos-saas-kappa.vercel.app/sitemap.xml)
+- [Robots](https://pos-saas-kappa.vercel.app/robots.txt)

@@ -1,0 +1,14 @@
+{
+    "rules": {
+        ".read": "auth != null",
+        ".write": "auth != null",
+        "supportChats": {
+            "$storeId": {
+                ".indexOn": [
+                    "updatedAt",
+                    "lastMessageAt"
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,200 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A2625"/>
+      <stop offset="50%" stop-color="#0D3B39"/>
+      <stop offset="100%" stop-color="#145753"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8A735"/>
+      <stop offset="100%" stop-color="#F0BC5E"/>
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2A9D8F"/>
+      <stop offset="100%" stop-color="#3BB5A6"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.08)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.02)"/>
+    </linearGradient>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="20" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="rgba(0,0,0,0.3)"/>
+    </filter>
+    <clipPath id="screenClip">
+      <rect x="680" y="110" width="420" height="280" rx="12"/>
+    </clipPath>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  
+  <!-- Decorative grid -->
+  <g opacity="0.03" stroke="white" stroke-width="1">
+    <line x1="0" y1="105" x2="1200" y2="105"/>
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="525" x2="1200" y2="525"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+  
+  <!-- Decorative blurred circles -->
+  <circle cx="950" cy="120" r="180" fill="#E8A735" opacity="0.06"/>
+  <circle cx="150" cy="500" r="200" fill="#2A9D8F" opacity="0.05"/>
+  <circle cx="600" cy="315" r="350" fill="#0D3B39" opacity="0.1"/>
+  
+  <!-- LEFT SIDE: Text Content -->
+  
+  <!-- Logo icon small -->
+  <rect x="70" y="80" width="48" height="48" rx="12" fill="rgba(255,255,255,0.1)"/>
+  <rect x="79" y="87" width="30" height="21" rx="3" fill="rgba(255,255,255,0.15)"/>
+  <rect x="82" y="90" width="24" height="15" rx="2" fill="rgba(255,255,255,0.25)"/>
+  <!-- mini bars -->
+  <rect x="86" y="99" width="4" height="4" rx="1" fill="#2A9D8F"/>
+  <rect x="92" y="96" width="4" height="7" rx="1" fill="#E8A735"/>
+  <rect x="98" y="93" width="4" height="10" rx="1" fill="white" opacity="0.8"/>
+  <rect x="82" y="112" width="21" height="3" rx="1.5" fill="rgba(255,255,255,0.15)"/>
+  <rect x="85" y="118" width="15" height="4" rx="2" fill="rgba(255,255,255,0.08)"/>
+  <!-- mini lightning -->
+  <path d="M110 78 L105 90 L109 90 L104 102 L113 87 L109 87 Z" fill="url(#goldGrad)" opacity="0.8"/>
+  
+  <!-- Brand name next to icon -->
+  <text x="128" y="108" font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="24" fill="white" letter-spacing="-0.5">Quick</text>
+  <text x="212" y="108" font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="24" fill="#E8A735" letter-spacing="-0.5">POS</text>
+  
+  <!-- Main Headline -->
+  <text x="70" y="210" font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="56" fill="white" letter-spacing="-2">
+    The Smartest POS
+  </text>
+  <text x="70" y="275" font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="56" fill="white" letter-spacing="-2">
+    for Modern
+  </text>
+  <text x="70" y="340" font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="56" letter-spacing="-2">
+    <tspan fill="url(#goldGrad)">Retail</tspan>
+  </text>
+  
+  <!-- Subheadline -->
+  <text x="70" y="385" font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-weight="400" font-size="18" fill="rgba(255,255,255,0.6)" letter-spacing="0.3">
+    Inventory · Customers · Reports · Multi-Store
+  </text>
+  
+  <!-- Feature pills -->
+  <rect x="70" y="420" width="130" height="36" rx="18" fill="rgba(42,157,143,0.2)" stroke="#2A9D8F" stroke-width="1.5"/>
+  <text x="135" y="443" text-anchor="middle" font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-weight="600" font-size="13" fill="#2A9D8F">✓ Real-Time</text>
+  
+  <rect x="212" y="420" width="120" height="36" rx="18" fill="rgba(232,167,53,0.15)" stroke="#E8A735" stroke-width="1.5"/>
+  <text x="272" y="443" text-anchor="middle" font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-weight="600" font-size="13" fill="#E8A735">✓ Firebase</text>
+  
+  <rect x="344" y="420" width="130" height="36" rx="18" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+  <text x="409" y="443" text-anchor="middle" font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-weight="600" font-size="13" fill="rgba(255,255,255,0.7)">✓ SaaS Ready</text>
+  
+  <!-- CTA Area -->
+  <rect x="70" y="485" width="200" height="50" rx="12" fill="url(#goldGrad)"/>
+  <text x="170" y="516" text-anchor="middle" font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="16" fill="#0D3B39">Start Free Trial →</text>
+  
+  <text x="290" y="516" font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-weight="500" font-size="14" fill="rgba(255,255,255,0.5)">No credit card required</text>
+  
+  <!-- RIGHT SIDE: Dashboard Mockup -->
+  <g filter="url(#shadow)">
+    <!-- Browser chrome -->
+    <rect x="660" y="85" width="470" height="330" rx="16" fill="#1a1a2e" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    
+    <!-- Title bar -->
+    <rect x="660" y="85" width="470" height="35" rx="16" fill="#1e1e35"/>
+    <rect x="660" y="105" width="470" height="15" fill="#1e1e35"/>
+    <!-- Window dots -->
+    <circle cx="682" cy="102" r="5" fill="#ff5f57"/>
+    <circle cx="700" cy="102" r="5" fill="#ffbd2e"/>
+    <circle cx="718" cy="102" r="5" fill="#28ca41"/>
+    <!-- URL bar -->
+    <rect x="740" y="95" width="260" height="16" rx="4" fill="rgba(255,255,255,0.06)"/>
+    <text x="760" y="107" font-family="monospace" font-size="9" fill="rgba(255,255,255,0.3)">pos-saas-kappa.vercel.app</text>
+    
+    <!-- Dashboard content area -->
+    <rect x="660" y="120" width="470" height="295" fill="#F7F9FC"/>
+    <rect x="660" y="395" width="470" height="20" rx="0" fill="#F7F9FC"/>
+    <rect x="660" y="399" width="470" height="16" rx="16" fill="#F7F9FC"/>
+    
+    <!-- Sidebar -->
+    <rect x="660" y="120" width="80" height="295" fill="#0D3B39"/>
+    <!-- Sidebar items -->
+    <rect x="672" y="135" width="56" height="8" rx="4" fill="rgba(255,255,255,0.3)"/>
+    <rect x="672" y="158" width="56" height="6" rx="3" fill="rgba(255,255,255,0.1)"/>
+    <rect x="672" y="175" width="56" height="6" rx="3" fill="rgba(255,255,255,0.1)"/>
+    <rect x="672" y="192" width="56" height="6" rx="3" fill="#E8A735" opacity="0.6"/>
+    <rect x="672" y="209" width="56" height="6" rx="3" fill="rgba(255,255,255,0.1)"/>
+    <rect x="672" y="226" width="56" height="6" rx="3" fill="rgba(255,255,255,0.1)"/>
+    <rect x="672" y="243" width="56" height="6" rx="3" fill="rgba(255,255,255,0.1)"/>
+    
+    <!-- Main content area -->
+    <!-- Stat cards -->
+    <rect x="755" y="132" width="85" height="48" rx="8" fill="white" stroke="#e5e7eb" stroke-width="0.5"/>
+    <rect x="765" y="140" width="40" height="5" rx="2.5" fill="#6B7280" opacity="0.3"/>
+    <text x="765" y="166" font-family="Arial, sans-serif" font-weight="800" font-size="14" fill="#0D3B39">₹24.5K</text>
+    
+    <rect x="850" y="132" width="85" height="48" rx="8" fill="white" stroke="#e5e7eb" stroke-width="0.5"/>
+    <rect x="860" y="140" width="40" height="5" rx="2.5" fill="#6B7280" opacity="0.3"/>
+    <text x="860" y="166" font-family="Arial, sans-serif" font-weight="800" font-size="14" fill="#2A9D8F">1,245</text>
+    
+    <rect x="945" y="132" width="85" height="48" rx="8" fill="white" stroke="#e5e7eb" stroke-width="0.5"/>
+    <rect x="955" y="140" width="40" height="5" rx="2.5" fill="#6B7280" opacity="0.3"/>
+    <text x="955" y="166" font-family="Arial, sans-serif" font-weight="800" font-size="14" fill="#E8A735">47</text>
+    
+    <rect x="1040" y="132" width="85" height="48" rx="8" fill="white" stroke="#e5e7eb" stroke-width="0.5"/>
+    <rect x="1050" y="140" width="40" height="5" rx="2.5" fill="#6B7280" opacity="0.3"/>
+    <text x="1050" y="166" font-family="Arial, sans-serif" font-weight="800" font-size="14" fill="#0D3B39">183</text>
+    
+    <!-- Chart area -->
+    <rect x="755" y="192" width="215" height="130" rx="8" fill="white" stroke="#e5e7eb" stroke-width="0.5"/>
+    <!-- Chart title -->
+    <rect x="765" y="200" width="60" height="5" rx="2.5" fill="#6B7280" opacity="0.3"/>
+    <!-- Area chart -->
+    <polygon points="765,308 785,290 805,295 825,275 845,280 865,260 885,265 905,250 925,255 945,240 955,308" fill="#2A9D8F" opacity="0.15"/>
+    <polyline points="765,308 785,290 805,295 825,275 845,280 865,260 885,265 905,250 925,255 945,240" fill="none" stroke="#2A9D8F" stroke-width="2" stroke-linecap="round"/>
+    
+    <!-- Pie chart area -->
+    <rect x="980" y="192" width="145" height="130" rx="8" fill="white" stroke="#e5e7eb" stroke-width="0.5"/>
+    <rect x="990" y="200" width="50" height="5" rx="2.5" fill="#6B7280" opacity="0.3"/>
+    <!-- Donut chart -->
+    <circle cx="1052" cy="268" r="32" fill="none" stroke="#e5e7eb" stroke-width="12"/>
+    <circle cx="1052" cy="268" r="32" fill="none" stroke="#0D3B39" stroke-width="12" stroke-dasharray="80 120" transform="rotate(-90 1052 268)"/>
+    <circle cx="1052" cy="268" r="32" fill="none" stroke="#E8A735" stroke-width="12" stroke-dasharray="50 150" stroke-dashoffset="-80" transform="rotate(-90 1052 268)"/>
+    <circle cx="1052" cy="268" r="32" fill="none" stroke="#2A9D8F" stroke-width="12" stroke-dasharray="40 160" stroke-dashoffset="-130" transform="rotate(-90 1052 268)"/>
+    
+    <!-- Table area -->
+    <rect x="755" y="332" width="370" height="75" rx="8" fill="white" stroke="#e5e7eb" stroke-width="0.5"/>
+    <rect x="765" y="340" width="60" height="5" rx="2.5" fill="#6B7280" opacity="0.3"/>
+    <!-- Table rows -->
+    <rect x="765" y="354" width="350" height="1" fill="#e5e7eb"/>
+    <rect x="765" y="360" width="55" height="4" rx="2" fill="#1A1A1A" opacity="0.2"/>
+    <rect x="835" y="360" width="45" height="4" rx="2" fill="#6B7280" opacity="0.15"/>
+    <rect x="900" y="360" width="35" height="4" rx="2" fill="#2A9D8F" opacity="0.3"/>
+    <rect x="960" y="358" width="40" height="8" rx="4" fill="#dcfce7"/>
+    
+    <rect x="765" y="374" width="350" height="1" fill="#e5e7eb"/>
+    <rect x="765" y="380" width="50" height="4" rx="2" fill="#1A1A1A" opacity="0.2"/>
+    <rect x="835" y="380" width="40" height="4" rx="2" fill="#6B7280" opacity="0.15"/>
+    <rect x="900" y="380" width="30" height="4" rx="2" fill="#E8A735" opacity="0.3"/>
+    <rect x="960" y="378" width="40" height="8" rx="4" fill="#fef3c7"/>
+    
+    <rect x="765" y="394" width="350" height="1" fill="#e5e7eb"/>
+    <rect x="765" y="400" width="60" height="4" rx="2" fill="#1A1A1A" opacity="0.2"/>
+    <rect x="835" y="400" width="48" height="4" rx="2" fill="#6B7280" opacity="0.15"/>
+    <rect x="900" y="400" width="38" height="4" rx="2" fill="#0D3B39" opacity="0.3"/>
+    <rect x="960" y="398" width="40" height="8" rx="4" fill="#dcfce7"/>
+  </g>
+  
+  <!-- Bottom accent line -->
+  <rect x="0" y="620" width="1200" height="10" fill="url(#goldGrad)"/>
+  
+  <!-- Bottom right URL -->
+  <text x="1130" y="605" text-anchor="end" font-family="monospace" font-size="12" fill="rgba(255,255,255,0.25)">pos-saas-kappa.vercel.app</text>
+</svg>

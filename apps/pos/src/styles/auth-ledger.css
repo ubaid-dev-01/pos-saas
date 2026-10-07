@@ -1,0 +1,151 @@
+:root {
+  --ink: #07131f;
+  --paper: #f4f6f8;
+  --surface: #ffffff;
+  --signal: #0e7c77;
+  --signal-deep: #0a5c58;
+  --line: #d7dde5;
+  --muted: #5b6775;
+}
+
+.auth-ledger {
+  --auth-ink: var(--ink);
+  --auth-paper: var(--paper);
+  --auth-signal: var(--signal);
+  --auth-signal-deep: var(--signal-deep);
+  --auth-line: var(--line);
+  --auth-muted: var(--muted);
+  --auth-surface: var(--surface);
+  min-height: 100vh;
+  color: var(--auth-ink);
+  background:
+    radial-gradient(ellipse 80% 50% at 10% -10%, color-mix(in srgb, var(--signal) 18%, transparent), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 0%, color-mix(in srgb, var(--ink) 8%, transparent), transparent 50%),
+    linear-gradient(180deg, var(--paper) 0%, #eef2f5 100%);
+  font-family: "IBM Plex Sans", Inter, system-ui, sans-serif;
+}
+
+.auth-ledger .auth-display {
+  font-family: Syne, "IBM Plex Sans", system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.auth-ledger .auth-field {
+  width: 100%;
+  border: 1px solid var(--auth-line);
+  background: var(--auth-surface);
+  padding: 0.75rem 0.875rem;
+  font-size: 0.875rem;
+  color: var(--auth-ink);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.auth-ledger .auth-field:focus,
+.auth-ledger .auth-field:focus-within {
+  border-color: var(--auth-signal);
+}
+
+.auth-ledger .auth-field-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid var(--auth-line);
+  background: var(--auth-surface);
+  padding: 0.75rem 0.875rem;
+  transition: border-color 0.2s ease;
+}
+
+.auth-ledger .auth-field-wrap:focus-within {
+  border-color: var(--auth-signal);
+}
+
+.auth-ledger .auth-btn {
+  display: inline-flex;
+  min-height: 2.75rem;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--auth-signal);
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.auth-ledger .auth-btn:hover:not(:disabled) {
+  background: var(--auth-signal-deep);
+}
+
+.auth-ledger .auth-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.auth-ledger .auth-btn-ghost {
+  display: inline-flex;
+  min-height: 2.75rem;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--auth-line);
+  background: transparent;
+  color: var(--auth-ink);
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.auth-ledger .auth-btn-ghost:hover:not(:disabled) {
+  border-color: var(--auth-ink);
+  background: color-mix(in srgb, var(--ink) 4%, white);
+}
+
+.auth-ledger .auth-panel {
+  border: 1px solid var(--auth-line);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.auth-ledger .auth-link {
+  color: var(--auth-signal);
+  font-weight: 600;
+}
+
+.auth-ledger .auth-link:hover {
+  text-decoration: underline;
+}
+
+.auth-ledger .auth-icon {
+  display: grid;
+  height: 2.5rem;
+  width: 2.5rem;
+  flex-shrink: 0;
+  place-items: center;
+  background: color-mix(in srgb, var(--auth-signal) 12%, white);
+  color: var(--auth-signal);
+}
+
+.auth-ledger .auth-label {
+  margin-bottom: 0.375rem;
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--auth-muted);
+}
+
+.auth-ledger .auth-error {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #b42318;
+}
+
+.auth-ledger .auth-otp {
+  letter-spacing: 0.35em;
+  text-align: center;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}

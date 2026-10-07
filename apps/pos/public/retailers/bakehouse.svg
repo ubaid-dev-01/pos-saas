@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="64" viewBox="0 0 220 64" fill="none">
+    <rect width="220" height="64" rx="14" fill="#F7F9F8" />
+    <rect x="14" y="14" width="36" height="36" rx="10" fill="#0F4B46" />
+    <path d="M23 39c4-8 6-11 9-11s5 3 9 11" stroke="#F4C96B" stroke-width="3" stroke-linecap="round" />
+    <text x="62" y="38" fill="#0B3A36" font-size="18" font-family="Segoe UI, Arial" font-weight="700">BakeHouse</text>
+</svg>
