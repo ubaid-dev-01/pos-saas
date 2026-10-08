@@ -8,3 +8,5 @@ npm-err.txt
 .env*.local
 yarn.lock
 .vercel
+
+.vercel

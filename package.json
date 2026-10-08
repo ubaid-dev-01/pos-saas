@@ -3,14 +3,14 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "dev": "npm run dev --prefix apps/web",
-    "dev:web": "npm run dev --prefix apps/web",
-    "dev:pos": "npm run dev --prefix apps/pos",
+    "dev": "node api.js && npm run dev --prefix apps/web",
+    "dev:web": "node api.js && npm run dev --prefix apps/web",
+    "dev:pos": "node api.js && npm run dev --prefix apps/pos",
     "build": "npm run build --prefix apps/web",
     "build:web": "npm run build --prefix apps/web",
     "build:pos": "npm run build --prefix apps/pos",
     "lint": "npm run lint --prefix apps/web",
-    "start": "npm run start --prefix apps/web",
+    "start": "node api.js && npm run start --prefix apps/web",
     "install:all": "npm install --prefix apps/web --legacy-peer-deps && npm install --prefix apps/pos --legacy-peer-deps"
   }
 }

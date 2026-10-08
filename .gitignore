@@ -40,8 +40,6 @@ dist-ssr
 functions/.env
 apps/pos/functions/.env
 
-.env
-.env.*
 !.env.example
 firebase-service-account.json
 
