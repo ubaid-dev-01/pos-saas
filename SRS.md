@@ -127,4 +127,17 @@ Local (browser):
 
 ---
 
+## Ad-hoc / dated backlog — 2026-10-14
+
+| ID | Task | Status | Completed | Notes |
+|----|------|--------|-----------|-------|
+| D-001 | Redesign `apps/web` marketing homepage (Odario-inspired SaaS layout + original PNG product/lifestyle assets) | done | 2026-10-14 | Brand-first hero, feature grid, alternating product shots, 3-tier pricing, industry stories, featured testimonial; PNGs in `apps/web/public/marketing/` |
+| D-002 | Restyle `apps/web` homepage to Bold Brew–inspired layout (white/ink/amber, circular frames, path lines) with QuickPOS content + own assets | done | 2026-10-14 | White/ink/amber tokens; slash nav; circular stats & frames; amber path lines; plans-as-collection; own PNGs/content kept |
+| D-003 | Polish marketing site: transparent cutout PNGs, match imagery, Bold Brew detailing on all pages | done | 2026-10-14 | Food cutouts + device float PNGs; MarketingDecor shared; home/features/pricing/about/contact/industries/footer/thank-you/legal polished |
+| D-004 | Hero/UX polish: remove colored image glows, stop using rough bg-removed floats, add smoothness | done | 2026-10-14 | Removed hero amber blob + FloatShot tint; deleted rough cutouts/; original device PNGs; softer reveal/float/hover |
+| D-005 | Half-cut corner circles, clean device boxes, dark CTA imagery, animated buttons site-wide | done | 2026-10-14 | HalfCutCircle on page heroes + footer; FloatShot boxed no shadow; DarkCta; btn-anim shine/fill site-wide |
+| D-006 | Remove image borders; cutout-only half-cuts; full blurred CTA/footer bg; larger type & images; button shape | done | 2026-10-14 | No shot-box/ring; FOOD_CUTOUTS for circles; dark-cta + footer blur; asymmetric capsule buttons; scale-up |
+
+---
+
 _See implementation in `src/components/pos/`, `src/stores/transactionStore.js`, `src/utils/fbr.js`, `src/utils/offlineQueue.js`_

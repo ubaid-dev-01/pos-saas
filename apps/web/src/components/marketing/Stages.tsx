@@ -1,4 +1,51 @@
-/** High-fidelity product stages — denser, more realistic POS UI */
+/** High-fidelity product stages — restaurant order POS */
+
+import Image from "next/image";
+
+const MENU = [
+  {
+    n: "Margherita Pizza",
+    p: "1,450",
+    cat: "Mains",
+    on: true,
+    img: "/marketing/food/cutout-pizza.png",
+  },
+  {
+    n: "Classic Burger",
+    p: "890",
+    cat: "Mains",
+    on: true,
+    img: "/marketing/food/cutout-burger.png",
+  },
+  {
+    n: "Creamy Pasta",
+    p: "1,100",
+    cat: "Mains",
+    on: false,
+    img: "/marketing/food/cutout-pasta.png",
+  },
+  {
+    n: "Garden Salad",
+    p: "650",
+    cat: "Starters",
+    on: false,
+    img: "/marketing/food/cutout-salad.png",
+  },
+  {
+    n: "Cappuccino",
+    p: "420",
+    cat: "Drinks",
+    on: false,
+    img: "/marketing/food/cutout-coffee.png",
+  },
+  {
+    n: "Sushi Platter",
+    p: "2,200",
+    cat: "Mains",
+    on: false,
+    img: "/marketing/food/cutout-sushi.png",
+  },
+] as const;
 
 function Chrome({ title, meta }: { title: string; meta?: string }) {
   return (
@@ -56,97 +103,112 @@ export function StageFrame({
   );
 }
 
-export function CheckoutStage() {
-  const products = [
-    { n: "Nestle Milk 1L", p: "320", sku: "890123", on: true, tone: "#6b8cae" },
-    { n: "Tapal Tea 475g", p: "890", sku: "890441", on: false, tone: "#8a6b4a" },
-    { n: "Surf Excel 2kg", p: "1,150", sku: "890772", on: false, tone: "#3d6b9a" },
-    { n: "Olper Cream", p: "180", sku: "890019", on: true, tone: "#c4a574" },
-    { n: "Lux Soap 3pk", p: "245", sku: "890301", on: false, tone: "#b87a8c" },
-    { n: "Dalda Oil 5L", p: "2,480", sku: "890558", on: false, tone: "#d4a84b" },
-  ];
-
+/** Restaurant order placement — menu grid + live ticket */
+export function RestaurantOrderStage() {
+  const cats = ["All", "Mains", "Starters", "Drinks", "Dessert"];
   return (
-    <div className="min-h-[320px]">
-      <Chrome title="quickpos.app / pos" meta="LIVE" />
-      <div className="grid sm:grid-cols-[1.4fr_1fr]">
+    <div className="min-h-[340px]">
+      <Chrome title="quickpos.app / orders" meta="TABLE 12" />
+      <div className="grid lg:grid-cols-[1.55fr_1fr]">
         <div className="border-b border-line p-3 sm:border-b-0 sm:border-r sm:p-4">
-          <div className="mb-3 flex h-10 items-center gap-2 rounded-md border border-line bg-paper px-3 shadow-[inset_0_1px_2px_rgba(11,31,58,0.04)]">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-muted" aria-hidden>
-              <circle cx="11" cy="11" r="6.5" stroke="currentColor" strokeWidth="1.5" />
-              <path d="M16 16l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
-            <span className="flex-1 font-mono text-xs text-muted">
-              Scan barcode or search…
-            </span>
-            <span className="rounded-sm border border-line bg-surface px-1.5 py-0.5 font-mono text-[10px] text-muted">
-              ⌘K
-            </span>
-          </div>
-          <div className="grid grid-cols-2 gap-2">
-            {products.map((i) => (
-              <div
-                key={i.n}
-                className={`flex gap-2 rounded-md border p-2 transition-colors ${
-                  i.on
-                    ? "border-signal/50 bg-accent-soft ring-1 ring-signal/20"
-                    : "border-line bg-surface"
+          <div className="mb-3 flex flex-wrap gap-1.5">
+            {cats.map((c, i) => (
+              <span
+                key={c}
+                className={`rounded-full px-3 py-1 text-[11px] font-medium ${
+                  i === 0
+                    ? "bg-ink text-paper"
+                    : "border border-line bg-surface text-muted"
                 }`}
               >
-                <Swatch label={i.sku.slice(-3)} tone={i.tone} />
-                <div className="min-w-0">
-                  <p className="truncate text-[12px] font-medium leading-tight text-ink">
-                    {i.n}
+                {c}
+              </span>
+            ))}
+          </div>
+          <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+            {MENU.map((item) => (
+              <div
+                key={item.n}
+                className={`overflow-hidden rounded-lg border bg-surface transition-colors ${
+                  item.on
+                    ? "border-signal/45 ring-1 ring-signal/25"
+                    : "border-line"
+                }`}
+              >
+                <div className="relative aspect-square bg-[#f4f6f8]">
+                  <Image
+                    src={item.img}
+                    alt={item.n}
+                    fill
+                    className="object-contain p-1"
+                    sizes="160px"
+                  />
+                </div>
+                <div className="p-2.5">
+                  <p className="truncate text-[12px] font-semibold leading-tight text-ink">
+                    {item.n}
                   </p>
-                  <p className="mt-0.5 font-mono text-[10px] text-muted">
-                    {i.sku}
-                  </p>
-                  <p className="mt-1 font-mono text-[12px] font-semibold text-ink">
-                    Rs {i.p}
-                  </p>
+                  <div className="mt-1 flex items-center justify-between gap-1">
+                    <span className="font-mono text-[10px] text-muted">
+                      {item.cat}
+                    </span>
+                    <span className="font-mono text-[12px] font-semibold text-ink">
+                      Rs {item.p}
+                    </span>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
+
         <div className="flex flex-col bg-[#fafbfd] p-3 sm:p-4">
           <div className="flex items-center justify-between">
-            <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted">
-              Cart · Walk-in
-            </p>
-            <p className="font-mono text-[10px] text-muted">2 lines</p>
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted">
+                Order · Dine-in
+              </p>
+              <p className="mt-0.5 text-sm font-semibold text-ink">Table 12</p>
+            </div>
+            <span className="rounded-full bg-accent-soft px-2.5 py-1 font-mono text-[10px] font-medium text-signal-deep">
+              3 items
+            </span>
           </div>
           <div className="mt-3 flex-1 space-y-0">
             {[
-              { n: "Nestle Milk 1L", q: 2, p: "640" },
-              { n: "Olper Cream", q: 1, p: "180" },
+              { n: "Margherita Pizza", note: "Extra basil", q: 1, p: "1,450" },
+              { n: "Classic Burger", note: "No onion", q: 2, p: "1,780" },
+              { n: "Cappuccino", note: "", q: 1, p: "420" },
             ].map((line) => (
               <div
                 key={line.n}
                 className="flex items-start justify-between gap-2 border-b border-line/70 py-2.5 text-[13px]"
               >
-                <div>
+                <div className="min-w-0">
                   <p className="font-medium text-ink">{line.n}</p>
-                  <p className="font-mono text-[11px] text-muted">× {line.q}</p>
+                  <p className="font-mono text-[11px] text-muted">
+                    × {line.q}
+                    {line.note ? ` · ${line.note}` : ""}
+                  </p>
                 </div>
-                <span className="font-mono font-medium">Rs {line.p}</span>
+                <span className="shrink-0 font-mono font-medium">Rs {line.p}</span>
               </div>
             ))}
           </div>
           <div className="mt-3 space-y-1.5 border-t border-line pt-3 text-[12px] text-muted">
             <div className="flex justify-between">
               <span>Subtotal</span>
-              <span className="font-mono">Rs 820</span>
+              <span className="font-mono">Rs 3,650</span>
             </div>
             <div className="flex justify-between">
-              <span>Tax</span>
-              <span className="font-mono">Included</span>
+              <span>Service</span>
+              <span className="font-mono">Rs 180</span>
             </div>
           </div>
           <div className="mt-3 flex items-baseline justify-between">
             <span className="text-sm font-semibold">Total</span>
             <span className="font-mono text-2xl font-semibold tracking-tight">
-              Rs 820
+              Rs 3,830
             </span>
           </div>
           <button
@@ -154,15 +216,17 @@ export function CheckoutStage() {
             tabIndex={-1}
             className="mt-3 h-11 rounded-md bg-ink text-sm font-medium text-paper"
           >
-            Charge · Cash
+            Place order · Send to kitchen
           </button>
-          <div className="mt-2 grid grid-cols-2 gap-2">
-            <span className="rounded-md border border-line py-2 text-center text-[11px] font-medium text-muted">
-              Card
-            </span>
-            <span className="rounded-md border border-line py-2 text-center text-[11px] font-medium text-muted">
-              Split
-            </span>
+          <div className="mt-2 grid grid-cols-3 gap-2">
+            {["Hold", "Pay later", "Bill"].map((a) => (
+              <span
+                key={a}
+                className="rounded-md border border-line py-2 text-center text-[11px] font-medium text-muted"
+              >
+                {a}
+              </span>
+            ))}
           </div>
         </div>
       </div>
@@ -170,35 +234,71 @@ export function CheckoutStage() {
   );
 }
 
+export function CheckoutStage() {
+  return <RestaurantOrderStage />;
+}
+
 export function InventoryStage() {
   const rows = [
-    { sku: "MLK-01", name: "Nestle Milk 1L", qty: 42, ok: true, tone: "#6b8cae" },
-    { sku: "OIL-05", name: "Dalda Oil 5L", qty: 8, ok: false, tone: "#d4a84b" },
-    { sku: "TEA-47", name: "Tapal Tea 475g", qty: 61, ok: true, tone: "#8a6b4a" },
-    { sku: "SOAP-3", name: "Lux Soap 3pk", qty: 3, ok: false, tone: "#b87a8c" },
-    { sku: "CRM-02", name: "Olper Cream", qty: 27, ok: true, tone: "#c4a574" },
+    {
+      sku: "PZ-01",
+      name: "Pizza dough (batch)",
+      qty: 42,
+      ok: true,
+      img: "/marketing/food/cutout-pizza.png",
+    },
+    {
+      sku: "BF-02",
+      name: "Beef patties",
+      qty: 8,
+      ok: false,
+      img: "/marketing/food/cutout-burger.png",
+    },
+    {
+      sku: "PS-03",
+      name: "Pasta shells",
+      qty: 61,
+      ok: true,
+      img: "/marketing/food/cutout-pasta.png",
+    },
+    {
+      sku: "SL-04",
+      name: "Salad greens",
+      qty: 3,
+      ok: false,
+      img: "/marketing/food/cutout-salad.png",
+    },
+    {
+      sku: "CF-05",
+      name: "Coffee beans 1kg",
+      qty: 27,
+      ok: true,
+      img: "/marketing/food/cutout-coffee.png",
+    },
   ];
   return (
     <div className="min-h-[300px]">
-      <Chrome title="quickpos.app / inventory" meta="SYNCED" />
+      <Chrome title="quickpos.app / kitchen-stock" meta="SYNCED" />
       <div className="flex items-center justify-between border-b border-line px-4 py-2.5">
-        <p className="text-sm font-medium">Stock ledger</p>
-        <p className="font-mono text-[11px] text-muted">5 SKUs · 2 low</p>
+        <p className="text-sm font-medium">Kitchen stock</p>
+        <p className="font-mono text-[11px] text-muted">5 items · 2 low</p>
       </div>
       <div>
-        <div className="grid grid-cols-[40px_64px_1fr_52px_72px] gap-2 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.08em] text-muted">
+        <div className="grid grid-cols-[44px_64px_1fr_52px_72px] gap-2 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.08em] text-muted">
           <span />
           <span>SKU</span>
-          <span>Product</span>
+          <span>Item</span>
           <span className="text-right">Qty</span>
           <span>Status</span>
         </div>
         {rows.map((r) => (
           <div
             key={r.sku}
-            className="grid grid-cols-[40px_64px_1fr_52px_72px] items-center gap-2 border-t border-line px-3 py-2.5 text-sm"
+            className="grid grid-cols-[44px_64px_1fr_52px_72px] items-center gap-2 border-t border-line px-3 py-2.5 text-sm"
           >
-            <Swatch label="" tone={r.tone} />
+            <div className="relative h-9 w-9 overflow-hidden rounded-full bg-[#f0f3f7]">
+              <Image src={r.img} alt="" fill className="object-cover" sizes="36px" />
+            </div>
             <span className="font-mono text-[11px] text-muted">{r.sku}</span>
             <span className="truncate text-[13px]">{r.name}</span>
             <span className="text-right font-mono text-xs font-medium">{r.qty}</span>
@@ -209,7 +309,7 @@ export function InventoryStage() {
                   : "bg-[#fff4e0] text-[#b86e00]"
               }`}
             >
-              {r.ok ? "In stock" : "Low"}
+              {r.ok ? "Ready" : "Low"}
             </span>
           </div>
         ))}
@@ -224,34 +324,38 @@ export function ReceiptStage() {
       <div className="receipt-paper relative w-full max-w-[280px] border border-line bg-surface px-6 py-7 text-ink">
         <div className="text-center">
           <p className="text-[15px] font-semibold tracking-tight">
-            Hassan General Store
+            Spice Garden Café
           </p>
           <p className="mt-1 font-mono text-[10px] text-muted">
-            Multan · NTN 1234567-8
+            Multan · Table 12 · Dine-in
           </p>
           <p className="mt-3 font-mono text-[10px] text-muted">
-            INV-48291 · 22 Jul 2026 · 14:22
+            ORD-48291 · 14 Oct 2026 · 14:22
           </p>
         </div>
         <div className="my-4 border-t border-dashed border-ink/20" />
         <div className="space-y-2.5 text-[13px]">
           <div className="flex justify-between gap-3">
-            <span>Nestle Milk 1L × 2</span>
-            <span className="font-mono">640.00</span>
+            <span>Margherita Pizza × 1</span>
+            <span className="font-mono">1,450</span>
           </div>
           <div className="flex justify-between gap-3">
-            <span>Olper Cream × 1</span>
-            <span className="font-mono">180.00</span>
+            <span>Classic Burger × 2</span>
+            <span className="font-mono">1,780</span>
+          </div>
+          <div className="flex justify-between gap-3">
+            <span>Cappuccino × 1</span>
+            <span className="font-mono">420</span>
           </div>
         </div>
         <div className="my-4 border-t border-dashed border-ink/20" />
         <div className="flex justify-between text-[13px]">
           <span className="text-muted">Subtotal</span>
-          <span className="font-mono">820.00</span>
+          <span className="font-mono">3,650</span>
         </div>
         <div className="mt-3 flex justify-between text-[15px] font-semibold">
-          <span>Paid · Cash</span>
-          <span className="font-mono">Rs 820</span>
+          <span>Paid · Card</span>
+          <span className="font-mono">Rs 3,830</span>
         </div>
         <div className="mt-6 flex justify-center gap-5 border-t border-ink/10 pt-4 text-[11px] font-medium text-muted">
           <span>Print</span>

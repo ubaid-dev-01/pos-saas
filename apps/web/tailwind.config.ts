@@ -28,6 +28,7 @@ const config: Config = {
         "line-strong": "var(--line-strong)",
         muted: "var(--muted)",
         warm: "var(--warm)",
+        "warm-soft": "var(--warm-soft)",
         whatsapp: "#0E7C77",
       },
       fontFamily: {
@@ -43,6 +44,13 @@ const config: Config = {
       boxShadow: {
         soft: "0 1px 2px rgba(11, 31, 58, 0.04)",
         stage: "0 12px 32px rgba(11, 31, 58, 0.1), 0 2px 6px rgba(11, 31, 58, 0.06)",
+      },
+      dropShadow: {
+        cutout: "0 10px 18px rgba(10, 10, 10, 0.12)",
+        float: [
+          "0 22px 40px rgba(10, 10, 10, 0.1)",
+          "0 6px 14px rgba(10, 10, 10, 0.05)",
+        ],
       },
       spacing: {
         18: "4.5rem",

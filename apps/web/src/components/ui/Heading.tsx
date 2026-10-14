@@ -9,11 +9,10 @@ export function Heading({
   children: ReactNode;
   className?: string;
 }) {
-  /* Headlines support visuals — calm, tight, readable */
   const sizes = {
-    h1: "font-sans text-[2.1rem] font-semibold tracking-[-0.035em] leading-[1.08] md:text-[2.85rem] lg:text-[3.35rem]",
-    h2: "font-sans text-[1.85rem] font-semibold tracking-[-0.03em] leading-[1.12] md:text-[2.35rem]",
-    h3: "font-sans text-xl font-semibold tracking-[-0.02em] md:text-2xl",
+    h1: "font-sans text-[2.6rem] font-bold tracking-[-0.035em] leading-[1.06] md:text-[3.35rem] lg:text-[3.85rem]",
+    h2: "font-sans text-[2.15rem] font-bold tracking-[-0.03em] leading-[1.1] md:text-[2.75rem] lg:text-[3rem]",
+    h3: "font-sans text-2xl font-bold tracking-[-0.02em] md:text-[1.75rem]",
   };
 
   return <Tag className={`${sizes[Tag]} ${className}`}>{children}</Tag>;

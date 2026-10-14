@@ -16,8 +16,14 @@ export default function RefundPage() {
     <main id="main-content">
       <Section className="!pt-16 max-w-3xl">
         <Breadcrumbs items={[{ name: "Refunds", path: "/refund" }]} />
-        <Heading as="h1">Refund Policy</Heading>
-        <p className="mt-2 text-sm text-muted">Last updated: July 2026</p>
+        <p className="mt-5 text-xs font-medium uppercase tracking-[0.16em] text-warm">
+          Legal
+        </p>
+        <Heading as="h1" className="mt-3">
+          Refund Policy
+        </Heading>
+        <div className="detail-rule mt-4" />
+        <p className="mt-3 text-sm text-muted">Last updated: July 2026</p>
         <div className="mt-8 space-y-6 text-sm leading-relaxed text-muted">
           <section>
             <h2 className="font-display text-xl font-bold text-ink">1. Free Starter</h2>

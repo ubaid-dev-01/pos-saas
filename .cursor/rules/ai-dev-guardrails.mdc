@@ -1,0 +1,29 @@
+---
+description: Follow Rules.md guardrails and the security-first scan order on this repo
+alwaysApply: true
+---
+
+# AI dev guardrails
+
+The full rules pack is `Rules.md` at the repository root. Read it before planning, coding, installing, or reviewing. Product scope and tasks live in `SRS.md`.
+
+## Order of operations
+
+1. Malware scan first. Skip `node_modules` and `.git` objects. Do not install, build, start, or run lifecycle scripts until the scan is clean.
+2. If an October 2026 marker is present, delete that file from the terminal, do not execute it, and stop. No install, commit, or push.
+3. After a clean scan, dependency work is read-only until the user explicitly approves a report in that thread.
+4. Never `git push`, force-push, or publish a pull request, tag, or release.
+
+## Markers
+
+- `.vscode/tasks.json` with `runOn: folderOpen`, or `node` on a `.eot`, `.woff`, `.woff2`, or `.ttf`: delete `tasks.json`.
+- `task.allowAutomaticTasks` must stay `"off"`.
+- `fa-solid-*` fonts that are JavaScript (`function`, `global`, `_0x`): delete them. Delete unused copies nothing references.
+- Scripts starting with `node api.js &&`, or lifecycle scripts that `curl`, `wget`, or `eval` remote code: treat as malicious.
+- Obfuscated payloads after a long space run in `api.js`, `tailwind.config.js`, or `postcss.config.js`: delete the payload only.
+
+## While changing code
+
+- Apply the CS, SS, SEC, and OPS rules in `Rules.md` that match the file you touch.
+- No hardcoded secrets. No `VITE_` or `NEXT_PUBLIC_` fallback that embeds a real key.
+- Do not mark a security check PASS unless that check was actually run.

@@ -1,79 +1,95 @@
-import Link from "next/link";
-import { type ReactNode } from "react";
-
-type Variant =
-  | "primary"
-  | "secondary"
-  | "ghost"
-  | "inverse"
-  | "inverseSecondary"
-  | "whatsapp";
-
-/** Colors aligned to logo: ink #07131F + signal teal #0E7C77 */
-const styles: Record<Variant, string> = {
-  inverse:
-    "btn-inverse !bg-paper !text-ink hover:!bg-white border border-transparent shadow-soft hover:shadow-stage",
-  inverseSecondary:
-    "bg-transparent !text-paper border border-paper/35 hover:!bg-paper hover:!text-ink",
-  whatsapp:
-    "bg-signal !text-paper hover:bg-signal-deep border border-transparent shadow-soft",
-  primary:
-    "bg-ink !text-paper hover:bg-ink-soft border border-transparent shadow-soft hover:shadow-stage active:translate-y-px",
-  secondary:
-    "bg-surface/80 !text-ink border border-ink/20 hover:border-ink/45 hover:bg-surface",
-  ghost:
-    "bg-transparent !text-ink border border-transparent hover:!text-signal-deep",
-};
-
-const base =
-  "inline-flex h-12 items-center justify-center rounded-md px-6 text-sm font-medium no-underline transition-[color,background-color,border-color,box-shadow,transform] duration-200 ease-brand disabled:opacity-50";
-
-export function Button({
-  children,
-  href,
-  variant = "primary",
-  className = "",
-  external,
-  type = "button",
-  ...rest
-}: {
-  children: ReactNode;
-  href?: string;
-  variant?: Variant;
-  className?: string;
-  external?: boolean;
-  type?: "button" | "submit";
-} & React.ButtonHTMLAttributes<HTMLButtonElement>) {
-  const cls = `${base} ${styles[variant]} ${className}`;
-
-  if (href) {
-    const isAbsolute =
-      href.startsWith("http") ||
-      href.startsWith("tel:") ||
-      href.startsWith("mailto:");
-    if (external || isAbsolute) {
-      return (
-        <a
-          href={href}
-          className={cls}
-          target={external ? "_blank" : undefined}
-          rel={external ? "noreferrer" : undefined}
-        >
-          {children}
-        </a>
-      );
-    }
-    return (
-      <Link href={href} className={cls}>
-        {children}
-      </Link>
-    );
-  }
-
-  return (
-    <button type={type} className={cls} {...rest}>
-      {children}
-    </button>
-  );
-}
-
+import Link from "next/link";
+import { type ReactNode } from "react";
+
+type Variant =
+  | "primary"
+  | "secondary"
+  | "ghost"
+  | "inverse"
+  | "inverseSecondary"
+  | "whatsapp";
+
+const styles: Record<Variant, string> = {
+  primary: "btn-anim btn-anim--primary",
+  secondary: "btn-anim btn-anim--secondary",
+  ghost: "btn-anim btn-anim--ghost",
+  inverse: "btn-anim btn-anim--inverse",
+  inverseSecondary: "btn-anim btn-anim--inverse-secondary",
+  whatsapp: "btn-anim btn-anim--whatsapp",
+};
+
+const base =
+  "btn-anim-base inline-flex h-14 min-w-[9.5rem] items-center justify-center gap-2 px-8 text-[15px] font-semibold no-underline disabled:pointer-events-none disabled:opacity-50";
+
+export function Button({
+  children,
+  href,
+  variant = "primary",
+  className = "",
+  external,
+  type = "button",
+  ...rest
+}: {
+  children: ReactNode;
+  href?: string;
+  variant?: Variant;
+  className?: string;
+  external?: boolean;
+  type?: "button" | "submit";
+} & React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  const cls = `${base} ${styles[variant]} ${className}`;
+
+  const inner = (
+    <>
+      <span className="btn-anim-label relative z-[1] inline-flex items-center gap-2">
+        {children}
+        <svg
+          className="btn-anim-arrow h-4 w-4"
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden
+        >
+          <path
+            d="M3 8h10M9 4l4 4-4 4"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </span>
+      <span className="btn-anim-shine" aria-hidden />
+      <span className="btn-anim-fill" aria-hidden />
+    </>
+  );
+
+  if (href) {
+    const isAbsolute =
+      href.startsWith("http") ||
+      href.startsWith("tel:") ||
+      href.startsWith("mailto:");
+    if (external || isAbsolute) {
+      return (
+        <a
+          href={href}
+          className={cls}
+          target={external ? "_blank" : undefined}
+          rel={external ? "noreferrer" : undefined}
+        >
+          {inner}
+        </a>
+      );
+    }
+    return (
+      <Link href={href} className={cls}>
+        {inner}
+      </Link>
+    );
+  }
+
+  return (
+    <button type={type} className={cls} {...rest}>
+      {inner}
+    </button>
+  );
+}

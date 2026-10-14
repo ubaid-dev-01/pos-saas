@@ -1,13 +1,13 @@
+import { APP_URL, SITE_URL } from "@/lib/site";
+
 /**
- * Production POS (Vite) origin. Returns null if unset / same as marketing / placeholder.
+ * POS (Vite) origin for /login and /register redirects.
+ * Uses NEXT_PUBLIC_APP_URL (falls back to localhost:5173 locally via APP_URL).
+ * Returns null if unset / same as marketing / placeholder / localhost on Vercel.
  */
 export function getPosOrigin(): string | null {
-  const site = (process.env.NEXT_PUBLIC_SITE_URL || "")
-    .trim()
-    .replace(/\/$/, "");
-  const app = (process.env.NEXT_PUBLIC_APP_URL || "")
-    .trim()
-    .replace(/\/$/, "");
+  const site = SITE_URL.trim().replace(/\/$/, "");
+  const app = APP_URL.trim().replace(/\/$/, "");
 
   if (!app) return null;
   if (/YOUR-POS|example\.com/i.test(app)) return null;

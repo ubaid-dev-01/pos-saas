@@ -1,9 +1,65 @@
 /** Marketing content — Salesforce-grade structure, QuickPOS-true capabilities only. */
 
 export const IMPACT = [
-  { value: 3, suffix: "×", label: "Faster checkout in peak hours" },
-  { value: 40, suffix: "%", label: "More repeat visits with loyalty" },
-  { value: 5, suffix: " min", label: "Average store setup" },
+  { value: 3, suffix: "×", label: "Faster table turns at peak" },
+  { value: 40, suffix: "%", label: "Fewer kitchen ticket errors" },
+  { value: 5, suffix: " min", label: "Menu live after setup" },
+] as const;
+
+/** Homepage interface grid — restaurant order POS */
+export const INTERFACE_FEATURES = [
+  {
+    title: "Tap-to-order menu",
+    body: "Photo menu tiles for mains, starters, and drinks—staff place orders in seconds.",
+  },
+  {
+    title: "Table & modifiers",
+    body: "Table numbers, extras, and notes go with every ticket to the kitchen.",
+  },
+  {
+    title: "Kitchen-ready tickets",
+    body: "Place order, hold, or bill—floor and kitchen stay on the same ticket.",
+  },
+  {
+    title: "Pay your way",
+    body: "Cash, card, JazzCash, EasyPaisa, and Raast—settle when the guest is ready.",
+  },
+] as const;
+
+/** Homepage industry stories (photo strip) */
+export const HOME_STORIES = [
+  {
+    tag: "Restaurant",
+    title: "Dine-in that never loses a ticket",
+    excerpt:
+      "Table orders, modifiers, and kitchen send—built for busy service windows.",
+    image: "/marketing/food/restaurant-interior.jpg",
+    href: "/industries",
+  },
+  {
+    tag: "Café",
+    title: "Counters that clear tickets in seconds",
+    excerpt:
+      "Photo menus, quick tenders, and shift reports for café rushes.",
+    image: "/marketing/food/coffee.jpg",
+    href: "/industries",
+  },
+  {
+    tag: "Kitchen",
+    title: "Stock that matches what you plated",
+    excerpt:
+      "Low-stock alerts on dough, protein, and produce before the menu 86’s.",
+    image: "/marketing/food/kitchen-pass.jpg",
+    href: "/industries",
+  },
+] as const;
+
+export const PAYMENT_POINTS = [
+  "Photo menu with categories & modifiers",
+  "Table orders sent straight to kitchen",
+  "Cash, card & digital wallets on one bill",
+  "Print or WhatsApp guest receipts",
+  "Role-based access for floor & managers",
 ] as const;
 
 export const PROBLEMS = [
@@ -442,6 +498,7 @@ export const PRICING = {
   starter: {
     name: "Starter",
     price: "Free",
+    period: "forever",
     tagline: "One store. Core floor tools.",
     features: [
       "POS checkout (scan, discount, tax)",
@@ -451,16 +508,30 @@ export const PRICING = {
       "1 store · core users",
     ],
   },
+  standard: {
+    name: "Standard",
+    price: "Custom",
+    period: "quote",
+    tagline: "Growing stores that need sharper reporting.",
+    features: [
+      "Everything in Starter",
+      "Advanced product & staff reports",
+      "Loyalty points at checkout",
+      "Export when accounting asks",
+      "Priority WhatsApp support",
+    ],
+  },
   premium: {
     name: "Premium",
     price: "Custom",
+    period: "quote",
     tagline: "Multi-store ops with full reporting.",
     features: [
-      "Everything in Starter",
-      "Advanced analytics & exports",
+      "Everything in Standard",
       "Multi-store dashboard",
-      "Loyalty program",
-      "Priority onboarding & WhatsApp support",
+      "Unlimited staff & products",
+      "Migration help & training",
+      "Owner visibility across cities",
     ],
   },
 } as const;

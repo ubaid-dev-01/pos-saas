@@ -2,6 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import {
+  FOOD_CUTOUTS,
+  HalfCutCircle,
+  SECTION_BGS,
+  Spark,
+} from "@/components/marketing/MarketingDecor";
 import { CONTACT } from "@/lib/site";
 
 const cols = [
@@ -12,7 +18,7 @@ const cols = [
       { href: "/features#all-features", label: "Full feature list" },
       { href: "/industries", label: "Industries" },
       { href: "/pricing", label: "Pricing" },
-      { href: "/#how-it-works", label: "How it works" },
+      { href: "/#orders", label: "How it works" },
     ],
   },
   {
@@ -35,19 +41,49 @@ const cols = [
 
 export function SiteFooter() {
   return (
-    <footer className="atmosphere-ink text-paper">
-      <Container className="grid gap-12 py-20 md:grid-cols-4">
+    <footer className="relative overflow-hidden text-paper">
+      {/* Soft blurred full-bleed content bg */}
+      <div className="footer-bg-blur" aria-hidden>
+        <Image
+          src={SECTION_BGS.restaurant}
+          alt=""
+          fill
+          quality={70}
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="footer-bg-veil" />
+      </div>
+
+      {/* Large zoomed half-cut circles */}
+      <HalfCutCircle
+        src={FOOD_CUTOUTS.pizza}
+        position="top-right"
+        size={420}
+        zoom={1.3}
+        className="hidden sm:block"
+      />
+      <HalfCutCircle
+        src={FOOD_CUTOUTS.burger}
+        position="bottom-left"
+        size={400}
+        zoom={1.3}
+        className="hidden sm:block"
+      />
+      <Spark className="absolute left-1/2 top-10 z-[1] hidden -translate-x-1/2 text-warm md:block" />
+
+      <Container className="relative z-[1] grid gap-12 py-20 md:grid-cols-4 md:py-24">
         <div className="space-y-5">
           <Image
             src="/brand/logo-lockup-dark.svg"
             alt="QuickPOS"
-            width={160}
-            height={32}
-            className="h-8 w-auto"
+            width={180}
+            height={36}
+            className="h-9 w-auto"
           />
-          <p className="max-w-xs text-sm leading-relaxed text-paper/65">
-            Cloud POS for Pakistan retail—checkout, stock, customers, and reports
-            in one ledger.
+          <p className="max-w-xs text-base leading-relaxed text-paper/70">
+            Cloud POS for Pakistan restaurants and cafés—orders, kitchen stock,
+            guests, and reports in one ledger.
           </p>
           <Button href={CONTACT.whatsappGeneric} variant="whatsapp" external>
             WhatsApp
@@ -56,10 +92,10 @@ export function SiteFooter() {
 
         {cols.map((col) => (
           <div key={col.title}>
-            <p className="font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-paper/45">
+            <p className="text-xs font-medium uppercase tracking-[0.14em] text-warm/90">
               {col.title}
             </p>
-            <ul className="mt-5 space-y-2.5 text-sm text-paper/70">
+            <ul className="mt-5 space-y-3 text-base text-paper/75">
               {col.links.map((link) => (
                 <li key={link.href}>
                   <Link
@@ -75,8 +111,8 @@ export function SiteFooter() {
         ))}
       </Container>
 
-      <div className="border-t border-paper/10">
-        <Container className="flex flex-col gap-2 py-5 text-sm text-paper/50 md:flex-row md:items-center md:justify-between">
+      <div className="relative z-[1] border-t border-paper/10">
+        <Container className="flex flex-col gap-2 py-5 text-sm text-paper/55 md:flex-row md:items-center md:justify-between md:text-base">
           <p>© {new Date().getFullYear()} QuickPOS. All rights reserved.</p>
           <p>
             {CONTACT.office} · {CONTACT.phoneDisplay}
@@ -86,4 +122,3 @@ export function SiteFooter() {
     </footer>
   );
 }
-

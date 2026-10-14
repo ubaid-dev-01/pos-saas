@@ -15,7 +15,7 @@ import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 
 const plex = IBM_Plex_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-plex",
   display: "swap",
 });

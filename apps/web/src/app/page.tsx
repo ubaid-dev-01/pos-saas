@@ -1,68 +1,90 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+import { Check, Clock, Flame, Shield, Zap } from "lucide-react";
 import { Accordion } from "@/components/ui/Accordion";
 import { Button } from "@/components/ui/Button";
 import { Heading } from "@/components/ui/Heading";
 import { Section } from "@/components/ui/Section";
 import { CountUp } from "@/components/marketing/CountUp";
 import { LeadForm } from "@/components/marketing/LeadForm";
-import { ProductFrame } from "@/components/marketing/ProductFrame";
-import { Reveal } from "@/components/marketing/Reveal";
-import { SystemDiagram } from "@/components/marketing/SystemDiagram";
 import {
-  AnalyticsStage,
-  CheckoutStage,
-  InventoryStage,
-  ReceiptStage,
-  StageFrame,
-} from "@/components/marketing/Stages";
-import { CASES, COMPARISON, FAQS, IMPACT, PRICING, TESTIMONIALS } from "@/lib/content";
+  AmberPath,
+  CircleMedia,
+  CutoutFloat,
+  DarkCta,
+  DEVICE_SHOTS,
+  FOOD_CUTOUTS,
+  FloatShot,
+  SECTION_BGS,
+  Spark,
+} from "@/components/marketing/MarketingDecor";
+import { Reveal } from "@/components/marketing/Reveal";
+import {
+  FAQS,
+  HOME_STORIES,
+  IMPACT,
+  INTERFACE_FEATURES,
+  PAYMENT_POINTS,
+  PRICING,
+  TESTIMONIALS,
+} from "@/lib/content";
 import { JsonLd, buildMetadata, faqPageLd } from "@/lib/seo";
 import { CONTACT, appPath } from "@/lib/site";
 
 export const metadata: Metadata = buildMetadata({
-  title: "QuickPOS — Cloud POS for retail stores in Pakistan",
+  title: "QuickPOS — Restaurant & café order POS for Pakistan",
   description:
-    "Checkout, inventory, customers, and reports in one system. Free Starter for one store.",
+    "Place table orders in seconds. Photo menus, kitchen tickets, payments, and stock in one cloud POS for restaurants and cafés.",
   absoluteTitle: true,
 });
 
-const CHAPTERS = [
+const HERO_POINTS = [
+  { icon: Shield, label: "65% fewer ticket mix-ups" },
+  { icon: Zap, label: "2× faster peak checkout" },
+  { icon: Clock, label: "Live in under an hour" },
+] as const;
+
+const PLAN_VISUALS = [
   {
-    id: "checkout",
-    eyebrow: "Checkout",
-    title: "The counter, without friction.",
-    lead: "Scan, discount, split tender, and settle—without leaving the sale.",
-    caption: "Barcode · Hold cart · Split pay",
-    stage: <CheckoutStage />,
-    reverse: false,
+    key: "starter" as const,
+    image: FOOD_CUTOUTS.coffee,
+    cta: "Get started",
+    href: appPath("/register"),
+    external: false,
   },
   {
-    id: "inventory",
-    eyebrow: "Inventory",
-    title: "Stock that tells the truth.",
-    lead: "Every sale writes back. Low-stock alerts fire before the shelf goes empty.",
-    caption: "Live qty · Thresholds · History",
-    stage: <InventoryStage />,
-    reverse: true,
+    key: "standard" as const,
+    image: FOOD_CUTOUTS.burger,
+    cta: "Get started",
+    href: "/contact",
+    external: false,
   },
   {
-    id: "receipts",
-    eyebrow: "Receipts",
-    title: "Proof the customer keeps.",
-    lead: "Print or WhatsApp a branded ticket in one flow—no second app.",
-    caption: "Print · WhatsApp · Email",
-    stage: <ReceiptStage />,
-    reverse: false,
+    key: "premium" as const,
+    image: FOOD_CUTOUTS.pizza,
+    cta: "Talk to sales",
+    href: CONTACT.whatsappLink,
+    external: true,
+  },
+];
+
+const FEATURE_SPOTS = [
+  {
+    title: "Kitchen stock in your hands",
+    body: "Every plated order writes stock back. Low dough, protein, or greens alerts fire before you 86 a dish mid-service.",
+    image: DEVICE_SHOTS.tabletStock,
+    href: "/features",
+    cta: "Explore Now",
+    cutout: FOOD_CUTOUTS.pasta,
   },
   {
-    id: "reports",
-    eyebrow: "Reports",
-    title: "Owner clarity the same day.",
-    lead: "Sales, average ticket, and movement—while decisions still matter.",
-    caption: "Trends · Export-ready",
-    stage: <AnalyticsStage />,
-    reverse: true,
+    title: "Pay the Pakistan way",
+    body: "Cash, card, JazzCash, EasyPaisa, and Raast on one bill—settle when the guest is ready without juggling apps.",
+    image: DEVICE_SHOTS.phonePay,
+    href: "/features",
+    cta: "Explore Now",
+    cutout: FOOD_CUTOUTS.coffee,
   },
 ] as const;
 
@@ -71,415 +93,502 @@ export default function HomePage() {
     <main id="main-content">
       <JsonLd data={faqPageLd(FAQS)} />
 
-      {/* 1. Presence — Hero */}
-      <section className="atmosphere-hero border-b border-line">
-        <div className="mx-auto w-full max-w-content px-4 pb-6 pt-16 sm:px-6 md:pt-24">
-          <Reveal>
-            <p className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-signal-deep">
-              Cloud POS · Pakistan
-            </p>
-            <h1 className="mt-6 max-w-[12ch] font-sans text-[2.75rem] font-semibold leading-[0.98] tracking-[-0.04em] text-ink md:text-[4rem] lg:text-[4.5rem]">
-              QuickPOS
+      <section className="atmosphere-hero">
+        <div className="relative mx-auto w-full max-w-content px-4 pb-10 pt-10 sm:px-6 md:pb-16 md:pt-14">
+          <Reveal className="text-center">
+            <p className="hero-badge">Pure floor control · Nothing extra</p>
+            <div className="detail-rule mx-auto mt-4" />
+            <h1 className="mx-auto mt-5 max-w-[12ch] font-sans text-[3.75rem] font-bold leading-[0.95] tracking-[-0.05em] text-ink sm:text-[5rem] md:text-[6.25rem]">
+              Quick<span className="text-warm">POS</span>
             </h1>
-            <p className="mt-4 text-xl font-medium tracking-[-0.02em] text-ink/90 md:text-2xl">
-              Truth at the counter.
+            <p className="mx-auto mt-4 max-w-[30rem] text-lg text-muted md:text-xl">
+              Table orders for restaurants &amp; cafés
             </p>
-            <p className="mt-4 max-w-measure text-base leading-relaxed text-muted md:text-lg">
-              Checkout, stock, customers, and reports in one system—built for
-              floors that cannot afford chaos.
-            </p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Button href={appPath("/register")} variant="primary">
-                Start free
-              </Button>
-              <Button href="/pricing" variant="secondary">
-                See pricing
-              </Button>
-            </div>
           </Reveal>
+
+          <div className="relative mt-8 grid items-center gap-8 lg:mt-2 lg:grid-cols-12 lg:gap-4">
+            <Reveal className="order-2 lg:order-1 lg:col-span-3">
+              <p className="max-w-[20rem] text-base leading-relaxed text-muted md:text-lg">
+                Photo menus, kitchen tickets, and Pakistan payments—one calm POS
+                for a busy floor.
+              </p>
+              <div className="mt-6">
+                <Button href={appPath("/register")} variant="primary">
+                  Start Free
+                </Button>
+              </div>
+            </Reveal>
+
+            <Reveal
+              variant="scale"
+              delay={80}
+              className="order-1 relative cutout-stack bg-transparent lg:order-2 lg:col-span-6"
+            >
+              <CutoutFloat
+                src={FOOD_CUTOUTS.pizza}
+                className="left-[-6%] top-[6%] hidden lg:block"
+                size={120}
+                delay="0s"
+              />
+              <CutoutFloat
+                src={FOOD_CUTOUTS.coffee}
+                className="right-[-6%] bottom-[8%] hidden lg:block"
+                size={108}
+                delay="0.6s"
+              />
+              <Spark className="absolute left-[10%] top-[2%] hidden opacity-70 sm:block" />
+              <FloatShot
+                src={DEVICE_SHOTS.heroPos}
+                alt="QuickPOS order screen"
+                priority
+                className="mx-auto max-w-2xl"
+              />
+            </Reveal>
+
+            <Reveal delay={120} className="order-3 lg:col-span-3 lg:pl-2">
+              <ul className="space-y-5">
+                {HERO_POINTS.map((p) => (
+                  <li key={p.label} className="flex items-start gap-3">
+                    <span className="feature-dot">
+                      <p.icon
+                        className="h-3.5 w-3.5"
+                        strokeWidth={2.25}
+                        aria-hidden
+                      />
+                    </span>
+                    <span className="pt-0.5 text-sm font-medium leading-snug text-ink">
+                      {p.label}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <p className="hero-price mt-8 text-3xl font-bold tracking-tight md:text-4xl">
+                Free
+              </p>
+              <p className="mt-1 text-xs text-muted">Starter · forever</p>
+            </Reveal>
+          </div>
         </div>
-        <Reveal variant="scale" delay={120} className="mx-auto w-full max-w-content px-4 pb-16 sm:px-6 sm:pb-20">
-          <StageFrame flush caption="Live checkout · Counter view">
-            <CheckoutStage />
-          </StageFrame>
-        </Reveal>
       </section>
 
-      {/* Metrics — quiet editorial strip */}
-      <Section tone="surface" className="!py-16 border-b border-line">
-        <div className="grid gap-10 sm:grid-cols-3 sm:gap-0">
+      <Section className="!py-16 md:!py-20">
+        <Reveal className="mx-auto max-w-xl text-center">
+          <h2 className="font-sans text-2xl font-bold tracking-[-0.03em] text-ink md:text-3xl">
+            Running success one ticket at a time
+          </h2>
+          <div className="mt-3 flex items-center justify-center gap-2">
+            <Spark />
+            <div className="detail-rule" />
+            <Spark />
+          </div>
+        </Reveal>
+        <div className="mt-12 grid gap-10 sm:grid-cols-3 sm:gap-6">
           {IMPACT.map((stat, i) => (
-            <Reveal
-              key={stat.label}
-              delay={i * 80}
-              className={`sm:px-8 ${i > 0 ? "sm:border-l sm:border-line" : "sm:pl-0"}`}
-            >
-              <p className="font-mono text-3xl font-semibold tracking-tight text-ink md:text-4xl">
-                <CountUp value={stat.value} suffix={stat.suffix} />
-              </p>
-              <p className="mt-2 text-sm leading-snug text-muted">{stat.label}</p>
+            <Reveal key={stat.label} delay={i * 70}>
+              <div className="circle-stat">
+                <p className="font-sans text-3xl font-bold tracking-tight text-ink md:text-4xl">
+                  <CountUp value={stat.value} suffix={stat.suffix} />
+                </p>
+                <p className="mt-2 max-w-[12ch] text-sm leading-snug text-muted">
+                  {stat.label}
+                </p>
+              </div>
             </Reveal>
           ))}
         </div>
       </Section>
 
-      {/* 2. Recognition */}
-      <Section id="problem">
-        <div className="grid items-center gap-14 lg:grid-cols-12">
+      <Section id="features" className="!pt-8 relative overflow-hidden">
+        <AmberPath className="hidden opacity-70 md:block" />
+        <div className="relative grid gap-12 lg:grid-cols-12 lg:gap-10">
           <Reveal className="lg:col-span-5">
-            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-signal-deep">
-              The floor today
+            <p className="text-xs font-medium uppercase tracking-[0.16em] text-warm">
+              Built for the floor
             </p>
-            <Heading as="h2" className="mt-3">
-              Chaos is expensive.
+            <Heading as="h2" className="mt-3 max-w-[14ch]">
+              The order screen that has it all
             </Heading>
-            <ul className="mt-10 space-y-7">
-              {[
-                {
-                  t: "Stockouts hide until the shelf is empty",
-                  d: "Paper counts leave gaps in peak hours.",
-                },
-                {
-                  t: "Checkout slows when it matters",
-                  d: "Cashiers juggle tools instead of selling.",
-                },
-                {
-                  t: "Owners fly blind overnight",
-                  d: "Numbers wait for a spreadsheet merge.",
-                },
-              ].map((item, i) => (
-                <li key={item.t} className="flex gap-4">
-                  <span className="mt-1 font-mono text-[11px] text-signal-deep">
-                    0{i + 1}
+            <div className="detail-rule mt-4" />
+            <p className="mt-4 max-w-measure text-muted leading-relaxed">
+              Everything the floor needs—menu photos, modifiers, kitchen send,
+              and a ticket guests understand.
+            </p>
+            <ul className="mt-8 space-y-4">
+              {INTERFACE_FEATURES.map((feat) => (
+                <li key={feat.title} className="flex gap-3">
+                  <span className="mt-1 text-warm" aria-hidden>
+                    <Flame className="h-4 w-4" strokeWidth={2} />
                   </span>
                   <div>
-                    <p className="font-medium tracking-[-0.01em]">{item.t}</p>
-                    <p className="mt-1.5 text-sm leading-relaxed text-muted">
-                      {item.d}
+                    <p className="text-sm font-semibold text-ink">{feat.title}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-muted">
+                      {feat.body}
                     </p>
                   </div>
                 </li>
               ))}
             </ul>
           </Reveal>
-          <Reveal delay={100} className="lg:col-span-7">
-            <StageFrame caption="When systems don’t talk">
-              <ProductFrame
-                src="/marketing/snapshot-inventory.webp"
-                alt="Retail shelf and inventory pressure on a busy floor"
+
+          <div className="relative grid gap-8 sm:grid-cols-2 lg:col-span-7">
+            <Reveal variant="scale" className="relative sm:mt-12">
+              <CircleMedia
+                src="/marketing/lifestyle-cafe.png"
+                alt="Café counter running QuickPOS"
+                sizeClass="max-w-[360px]"
               />
-            </StageFrame>
-          </Reveal>
+              <CutoutFloat
+                src={FOOD_CUTOUTS.dessert}
+                className="-right-2 bottom-2 hidden sm:block"
+                size={96}
+                delay="0.3s"
+              />
+            </Reveal>
+            <Reveal delay={80} variant="scale">
+              <div className="relative mx-auto flex max-w-[320px] flex-col items-center">
+                <Image
+                  src={FOOD_CUTOUTS.steak}
+                  alt=""
+                  width={300}
+                  height={300}
+                  className="h-auto w-full object-contain"
+                  sizes="300px"
+                />
+                <p className="mt-5 max-w-[24ch] text-center text-base leading-relaxed text-muted">
+                  From café rush to full service—tickets stay with the table,
+                  not on paper scraps.
+                </p>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </Section>
 
-      {/* 3. System */}
-      <Section id="how-it-works" tone="surface" className="!pb-12 border-t border-line">
-        <Reveal>
-          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-signal-deep">
-            How it works
-          </p>
-          <Heading as="h2" className="mt-3">
-            One sale. Four truths updated.
-          </Heading>
-          <p className="mt-4 max-w-measure text-muted leading-relaxed">
-            Transaction, stock, customer, and report move together—so the floor
-            and the office share the same ledger.
+      <Section id="pricing" tone="inset" className="relative overflow-hidden">
+        <Spark className="absolute left-[8%] top-16 hidden md:block" />
+        <Spark className="absolute right-[10%] top-24 hidden md:block" />
+        <Reveal className="mx-auto max-w-xl text-center">
+          <Heading as="h2">Shop the collection</Heading>
+          <div className="detail-rule mx-auto mt-4" />
+          <p className="mt-4 text-muted leading-relaxed">
+            Start free on one counter. Upgrade when multi-outlet visibility
+            matters.{" "}
+            <Link
+              href="/pricing"
+              className="font-medium text-ink underline decoration-line underline-offset-4 hover:decoration-warm"
+            >
+              Full pricing
+            </Link>
           </p>
         </Reveal>
+        <div className="mt-14 grid gap-12 sm:grid-cols-3 sm:gap-8">
+          {PLAN_VISUALS.map((plan, i) => {
+            const data = PRICING[plan.key];
+            return (
+              <Reveal key={plan.key} delay={i * 70}>
+                <article className="plan-tile">
+                  <div className="plan-tile-media">
+                    <Image
+                      src={plan.image}
+                      alt=""
+                      fill
+                      className="object-contain p-2"
+                      sizes="220px"
+                    />
+                  </div>
+                  <h3 className="text-lg font-bold tracking-[-0.02em] text-ink">
+                    {data.name}
+                  </h3>
+                  <p className="font-mono text-xl font-semibold text-ink">
+                    {data.price}
+                  </p>
+                  <p className="max-w-[22ch] text-sm text-muted">{data.tagline}</p>
+                  <Button
+                    href={plan.href}
+                    variant="primary"
+                    external={plan.external || undefined}
+                    className="mt-2"
+                  >
+                    {plan.cta}
+                  </Button>
+                  <ul className="mt-4 space-y-2 text-left text-sm text-muted">
+                    {data.features.slice(0, 3).map((f) => (
+                      <li key={f} className="flex gap-2">
+                        <Check
+                          className="mt-0.5 h-4 w-4 shrink-0 text-warm"
+                          strokeWidth={2.5}
+                          aria-hidden
+                        />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              </Reveal>
+            );
+          })}
+        </div>
       </Section>
-      <SystemDiagram />
 
-      {/* 4. Depth — capability chapters */}
-      {CHAPTERS.map((ch, idx) => (
+      {FEATURE_SPOTS.map((spot, i) => (
         <Section
-          key={ch.id}
-          id={ch.id}
-          className={idx === 0 ? "border-t border-line" : "border-t border-line"}
+          key={spot.title}
+          id={i === 0 ? "kitchen" : "payments"}
+          className={`relative overflow-hidden ${i % 2 === 1 ? "atmosphere-inset" : ""}`}
         >
-          <div className="grid items-center gap-14 lg:grid-cols-12">
-            <Reveal
-              className={`lg:col-span-5 ${ch.reverse ? "lg:order-2" : ""}`}
-            >
-              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-signal-deep">
-                {ch.eyebrow}
-              </p>
-              <Heading as="h2" className="mt-3">
-                {ch.title}
+          <div
+            className={`grid items-center gap-12 lg:grid-cols-12 lg:gap-16 ${
+              i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
+            }`}
+          >
+            <Reveal variant="scale" className="relative lg:col-span-6">
+              <CutoutFloat
+                src={spot.cutout}
+                className={
+                  i % 2 === 0
+                    ? "-left-4 top-2 hidden sm:block"
+                    : "-right-4 top-4 hidden sm:block"
+                }
+                size={112}
+              />
+              <FloatShot
+                src={spot.image}
+                alt={spot.title}
+                className="mx-auto max-w-xl"
+                sizes="(max-width: 768px) 90vw, 560px"
+              />
+            </Reveal>
+            <Reveal delay={80} className="lg:col-span-6">
+              <Heading as="h2" className="max-w-[16ch]">
+                {spot.title}
               </Heading>
+              <div className="detail-rule mt-4" />
               <p className="mt-4 max-w-measure leading-relaxed text-muted">
-                {ch.lead}
+                {spot.body}
               </p>
               <div className="mt-8">
-                <Button href={`/features#${ch.id}`} variant="ghost">
-                  See details →
+                <Button href={spot.href} variant="primary">
+                  {spot.cta}
                 </Button>
               </div>
-            </Reveal>
-            <Reveal
-              delay={90}
-              variant="scale"
-              className={`lg:col-span-7 ${ch.reverse ? "lg:order-1" : ""}`}
-            >
-              <StageFrame caption={ch.caption}>{ch.stage}</StageFrame>
             </Reveal>
           </div>
         </Section>
       ))}
 
-      {/* Hardware */}
-      <Section id="hardware" tone="inset">
-        <div className="grid items-center gap-14 lg:grid-cols-12">
+      <Section id="orders" className="relative overflow-hidden">
+        <AmberPath className="hidden opacity-40 md:block" />
+        <div className="relative grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
           <Reveal className="lg:col-span-5">
-            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-signal-deep">
-              Hardware
-            </p>
-            <Heading as="h2" className="mt-3">
-              Bring your own counter.
+            <Heading as="h2" className="max-w-[16ch]">
+              Built like a real restaurant order flow
             </Heading>
-            <p className="mt-4 max-w-measure leading-relaxed text-muted">
-              Laptop or tablet. Optional scanner and receipt printer. No
-              proprietary terminal lock-in.
-            </p>
+            <div className="detail-rule mt-4" />
+            <ul className="mt-8 space-y-4">
+              {PAYMENT_POINTS.map((point) => (
+                <li key={point} className="flex gap-3.5">
+                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-warm bg-accent-soft text-warm">
+                    <Check
+                      className="h-3.5 w-3.5"
+                      strokeWidth={2.5}
+                      aria-hidden
+                    />
+                  </span>
+                  <p className="text-sm font-medium leading-relaxed text-ink">
+                    {point}
+                  </p>
+                </li>
+              ))}
+            </ul>
           </Reveal>
-          <Reveal delay={90} className="lg:col-span-7">
-            <StageFrame caption="BYO devices · Browser-based">
-              <ProductFrame
-                src="/marketing/hero-live-snapshot.webp"
-                alt="QuickPOS running on a device at a retail counter"
-              />
-            </StageFrame>
+          <Reveal delay={80} variant="scale" className="relative lg:col-span-7">
+            <FloatShot
+              src={DEVICE_SHOTS.heroDash}
+              alt="Checkout and order ticket flow"
+              className="mx-auto bg-transparent"
+            />
+            <CutoutFloat
+              src={FOOD_CUTOUTS.salad}
+              className="-bottom-2 right-4 hidden sm:block"
+              size={110}
+            />
           </Reveal>
         </div>
       </Section>
 
-      {/* Compare */}
-      <Section id="compare">
-        <Reveal>
-          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-signal-deep">
-            Compare
-          </p>
-          <Heading as="h2" className="mt-3">
-            Traditional POS vs QuickPOS
-          </Heading>
-        </Reveal>
-        <Reveal delay={80}>
-          <div className="mt-10 overflow-hidden border border-line bg-surface shadow-soft">
-            <div className="overflow-x-auto">
-              <table className="w-full min-w-[520px] text-left text-sm">
-                <thead className="border-b border-line bg-paper/80">
-                  <tr>
-                    <th className="px-5 py-4 font-medium">Capability</th>
-                    <th className="px-5 py-4 font-medium text-muted">
-                      Traditional
-                    </th>
-                    <th className="bg-accent-soft/50 px-5 py-4 font-medium text-signal-deep">
-                      QuickPOS
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {COMPARISON.map((row) => (
-                    <tr
-                      key={row.feature}
-                      className="border-b border-line last:border-0"
-                    >
-                      <td className="px-5 py-3.5 font-medium">{row.feature}</td>
-                      <td className="px-5 py-3.5 text-muted">{row.traditional}</td>
-                      <td className="bg-accent-soft/30 px-5 py-3.5 font-medium">
-                        {row.quickpos}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+      <Section id="stories" tone="inset">
+        <Reveal className="mx-auto max-w-xl text-center">
+          <Heading as="h2">From the floor</Heading>
+          <div className="mt-3 flex items-center justify-center gap-2">
+            <Spark />
+            <div className="detail-rule" />
+            <Spark />
           </div>
-        </Reveal>
-      </Section>
-
-      {/* Proof */}
-      <Section id="stories" tone="surface" className="border-y border-line">
-        <Reveal>
-          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-signal-deep">
-            Proof
+          <p className="mt-4 text-muted leading-relaxed">
+            Restaurants, cafés, and kitchens running orders on QuickPOS.
           </p>
-          <Heading as="h2" className="mt-3">
-            Stores that stopped guessing
-          </Heading>
         </Reveal>
-        <div className="mt-14 grid gap-12 md:grid-cols-3 md:gap-0">
-          {CASES.map((c, i) => (
-            <Reveal
-              key={c.name}
-              delay={i * 90}
-              className={`md:px-8 ${i > 0 ? "md:border-l md:border-line" : "md:pl-0"}`}
-            >
-              <p className="font-mono text-3xl font-semibold tracking-tight text-signal-deep">
-                {c.result.split(" ")[0]}
-              </p>
-              <p className="mt-2 text-sm font-medium leading-snug">{c.result}</p>
-              <p className="mt-5 text-sm text-muted">
-                {c.name} · {c.city}
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
-                “{c.quote}”
-              </p>
-            </Reveal>
-          ))}
+        <div className="mt-12 grid gap-10 md:grid-cols-3">
+          {HOME_STORIES.map((story, i) => {
+            const cutout = [
+              FOOD_CUTOUTS.pizza,
+              FOOD_CUTOUTS.coffee,
+              FOOD_CUTOUTS.pasta,
+            ][i];
+            return (
+              <Reveal key={story.title} delay={i * 70}>
+                <Link href={story.href} className="story-card group no-underline">
+                  <div className="relative flex aspect-square items-center justify-center overflow-hidden bg-transparent p-6">
+                    <Image
+                      src={cutout}
+                      alt={story.title}
+                      width={240}
+                      height={240}
+                      quality={90}
+                      className="story-card-img h-auto w-full max-w-[280px] object-contain transition-transform duration-700 ease-brand"
+                      sizes="280px"
+                    />
+                  </div>
+                  <div className="mt-2 text-center md:text-left">
+                    <span className="text-xs font-medium uppercase tracking-[0.12em] text-warm">
+                      {story.tag}
+                    </span>
+                    <h3 className="mt-2 text-base font-semibold tracking-[-0.01em] text-ink">
+                      {story.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted">
+                      {story.excerpt}
+                    </p>
+                  </div>
+                </Link>
+              </Reveal>
+            );
+          })}
         </div>
       </Section>
 
-      <Section dark>
-        <div className="grid gap-12 md:grid-cols-3 md:gap-10">
-          {TESTIMONIALS.map((t, i) => (
-            <Reveal key={t.name} delay={i * 90}>
-              <blockquote className="border-t border-paper/15 pt-6">
-                <p className="text-lg font-medium leading-snug text-paper md:text-xl">
+      <Section>
+        <Reveal className="mx-auto max-w-xl text-center">
+          <Heading as="h2">What our clients say</Heading>
+          <Spark className="mt-3" />
+        </Reveal>
+        <div className="mt-14 grid gap-12 md:grid-cols-2 md:gap-16">
+          {TESTIMONIALS.slice(0, 2).map((t, i) => (
+            <Reveal key={t.name} delay={i * 80} className="quote-open">
+              <div className="flex items-center gap-4">
+                <div className="relative h-14 w-14 overflow-hidden rounded-full border border-warm">
+                  <Image
+                    src={
+                      i === 0
+                        ? "/marketing/testimonial-ahmed.webp"
+                        : "/marketing/testimonial-fatima.webp"
+                    }
+                    alt={t.name}
+                    fill
+                    className="object-cover"
+                    sizes="56px"
+                  />
+                </div>
+                <div>
+                  <p className="font-semibold text-ink">{t.name}</p>
+                  <p className="text-sm text-muted">{t.role}</p>
+                </div>
+              </div>
+              <div
+                className="mt-4 flex gap-1 text-warm"
+                aria-label="5 out of 5 stars"
+              >
+                {Array.from({ length: 5 }).map((_, s) => (
+                  <svg
+                    key={s}
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden
+                  >
+                    <path d="M12 2.5l2.9 5.88 6.49.94-4.7 4.58 1.11 6.47L12 17.77l-5.8 3.05 1.11-6.47-4.7-4.58 6.49-.94L12 2.5z" />
+                  </svg>
+                ))}
+              </div>
+              <blockquote className="mt-4">
+                <p className="text-base leading-relaxed text-ink md:text-lg">
                   “{t.quote}”
                 </p>
-                <footer className="mt-7 text-sm text-paper/55">
-                  <p className="font-medium text-paper/90">{t.name}</p>
-                  <p className="mt-0.5">{t.role}</p>
-                </footer>
               </blockquote>
             </Reveal>
           ))}
         </div>
       </Section>
 
-      {/* Pricing */}
-      <Section id="pricing">
-        <Reveal>
-          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-signal-deep">
-            Pricing
-          </p>
-          <Heading as="h2" className="mt-3">
-            Simple plans.
-          </Heading>
-          <p className="mt-4 max-w-measure leading-relaxed text-muted">
-            Start free. Upgrade when multi-store visibility matters.{" "}
-            <Link
-              href="/pricing"
-              className="text-ink underline decoration-line underline-offset-4 transition-colors hover:decoration-signal"
-            >
-              Full pricing
-            </Link>
-          </p>
-        </Reveal>
-        <div className="mt-12 grid gap-5 lg:grid-cols-2">
-          <Reveal>
-            <article className="flex h-full flex-col border border-line bg-surface p-8 shadow-soft md:p-10">
-              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
-                {PRICING.starter.name}
-              </p>
-              <p className="mt-4 font-mono text-4xl font-semibold tracking-tight">
-                {PRICING.starter.price}
-              </p>
-              <p className="mt-2 text-sm text-muted">{PRICING.starter.tagline}</p>
-              <ul className="mt-8 flex-1 space-y-2.5 text-sm leading-relaxed">
-                {PRICING.starter.features.map((f) => (
-                  <li key={f} className="flex gap-2">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-signal" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-10">
-                <Button
-                  href={appPath("/register")}
-                  variant="secondary"
-                  className="w-full"
-                >
-                  Start free
-                </Button>
-              </div>
-            </article>
+      <Section tone="inset" className="overflow-hidden relative">
+        <Spark className="absolute right-[20%] top-12 hidden md:block" />
+        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
+          <Reveal variant="scale" className="relative lg:col-span-5">
+            <CircleMedia
+              src="/marketing/testimonial-portrait.png"
+              alt="Restaurant owner using QuickPOS"
+              sizeClass="max-w-[380px]"
+            />
+            <CutoutFloat
+              src={FOOD_CUTOUTS.coffee}
+              className="-right-1 bottom-4 hidden sm:block"
+              size={100}
+            />
           </Reveal>
-          <Reveal delay={100}>
-            <article className="flex h-full flex-col bg-ink p-8 text-paper shadow-stage md:p-10">
-              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-signal">
-                {PRICING.premium.name}
-              </p>
-              <p className="mt-4 font-mono text-4xl font-semibold tracking-tight">
-                {PRICING.premium.price}
-              </p>
-              <p className="mt-2 text-sm text-paper/65">
-                {PRICING.premium.tagline}
-              </p>
-              <ul className="mt-8 flex-1 space-y-2.5 text-sm leading-relaxed text-paper/85">
-                {PRICING.premium.features.map((f) => (
-                  <li key={f} className="flex gap-2">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-signal" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-10 grid gap-3">
-                <Button
-                  href={CONTACT.phoneLink}
-                  variant="inverse"
-                  className="w-full"
-                >
-                  Call {CONTACT.phoneDisplay}
-                </Button>
-                <Button
-                  href={CONTACT.whatsappLink}
-                  variant="whatsapp"
-                  external
-                  className="w-full"
-                >
-                  WhatsApp
-                </Button>
-              </div>
-            </article>
+          <Reveal delay={80} className="lg:col-span-7">
+            <p className="text-xs font-medium uppercase tracking-[0.16em] text-warm">
+              Stay ready
+            </p>
+            <Heading as="h2" className="mt-3">
+              Talk to sales
+            </Heading>
+            <div className="detail-rule mt-4" />
+            <p className="mt-3 max-w-measure text-muted leading-relaxed">
+              Tell us what you run—café, restaurant, or multi-outlet—we’ll map
+              the setup. Demo on WhatsApp when you’re ready.
+            </p>
+            <div className="mt-8 max-w-md">
+              <LeadForm source="homepage" />
+            </div>
           </Reveal>
         </div>
       </Section>
 
-      {/* FAQ + lead */}
-      <Section tone="surface" className="border-y border-line" id="faq">
-        <div className="grid gap-16 lg:grid-cols-12">
+      <Section id="faq">
+        <div className="grid gap-14 lg:grid-cols-12">
           <Reveal className="lg:col-span-6">
             <Heading as="h2">Questions</Heading>
+            <div className="detail-rule mt-4" />
             <div className="mt-8">
-              <Accordion items={[...FAQS.slice(0, 6)]} />
+              <Accordion items={[...FAQS.slice(0, 5)]} />
             </div>
           </Reveal>
-          <Reveal delay={100} className="lg:col-span-6">
-            <div className="border border-line bg-paper p-6 shadow-soft md:p-9">
-              <Heading as="h3">Talk to sales</Heading>
+          <Reveal delay={80} className="lg:col-span-6">
+            <div className="border-t border-line pt-8 md:border-l md:border-t-0 md:pl-10 md:pt-0">
+              <Heading as="h3">Prefer WhatsApp?</Heading>
               <p className="mt-2 text-sm leading-relaxed text-muted">
-                Tell us what you run—we’ll map the setup.
+                Book a kitchen demo—we’ll walk the order flow on your menu.
               </p>
-              <div className="mt-6">
-                <LeadForm source="homepage" />
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Button href={CONTACT.whatsappDemo} variant="primary" external>
+                  Book a demo
+                </Button>
+                <Button href="/contact" variant="secondary">
+                  Contact
+                </Button>
               </div>
             </div>
           </Reveal>
         </div>
       </Section>
 
-      {/* Commit */}
-      <Section dark>
-        <Reveal className="mx-auto max-w-xl text-center">
-          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-signal">
-            QuickPOS
-          </p>
-          <Heading as="h2" className="mt-5 text-paper">
-            Put a calm system on a busy floor.
-          </Heading>
-          <div className="mt-10 flex flex-wrap justify-center gap-3">
-            <Button href={appPath("/register")} variant="inverse">
-              Start free
-            </Button>
-            <Button href="/contact" variant="inverseSecondary">
-              Contact
-            </Button>
-          </div>
-        </Reveal>
-      </Section>
+      <DarkCta
+        title="Put a calm order system on a busy floor."
+        bgImage={SECTION_BGS.restaurant}
+        visualLeft={FOOD_CUTOUTS.burger}
+        visualRight={FOOD_CUTOUTS.pizza}
+      />
     </main>
   );
 }
-
