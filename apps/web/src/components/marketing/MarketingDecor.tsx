@@ -267,7 +267,7 @@ export function DarkCta({
         src={bgImage}
         alt=""
         fill
-        quality={85}
+        quality={90}
         className="object-cover"
         sizes="100vw"
         aria-hidden
