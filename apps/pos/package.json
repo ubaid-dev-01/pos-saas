@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node init && vite",
     "email-server": "node email-server.js",
-    "build": "vite build",
+    "build": "node init && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "firebase:encode-key": "node scripts/encode-firebase-key.mjs",
